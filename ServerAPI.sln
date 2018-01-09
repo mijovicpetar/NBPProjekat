@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingRedisClient", "Testi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisCommunicator", "RedisCommunicator\RedisCommunicator.csproj", "{A8B9AE68-73ED-4BA2-9C7E-700B767BF717}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neo4jCommunicator", "Neo4jCommunicator\Neo4jCommunicator.csproj", "{116A8D22-3571-4D28-AEA6-A1CEAC5CFDC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingNeo4JClient", "TestingNeo4JClient\TestingNeo4JClient.csproj", "{E9350375-073A-4649-82B3-1C5CACB1D8B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,5 +23,13 @@ Global
 		{A8B9AE68-73ED-4BA2-9C7E-700B767BF717}.Debug|x86.Build.0 = Debug|Any CPU
 		{A8B9AE68-73ED-4BA2-9C7E-700B767BF717}.Release|x86.ActiveCfg = Release|Any CPU
 		{A8B9AE68-73ED-4BA2-9C7E-700B767BF717}.Release|x86.Build.0 = Release|Any CPU
+		{116A8D22-3571-4D28-AEA6-A1CEAC5CFDC2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{116A8D22-3571-4D28-AEA6-A1CEAC5CFDC2}.Debug|x86.Build.0 = Debug|Any CPU
+		{116A8D22-3571-4D28-AEA6-A1CEAC5CFDC2}.Release|x86.ActiveCfg = Release|Any CPU
+		{116A8D22-3571-4D28-AEA6-A1CEAC5CFDC2}.Release|x86.Build.0 = Release|Any CPU
+		{E9350375-073A-4649-82B3-1C5CACB1D8B1}.Debug|x86.ActiveCfg = Debug|x86
+		{E9350375-073A-4649-82B3-1C5CACB1D8B1}.Debug|x86.Build.0 = Debug|x86
+		{E9350375-073A-4649-82B3-1C5CACB1D8B1}.Release|x86.ActiveCfg = Release|x86
+		{E9350375-073A-4649-82B3-1C5CACB1D8B1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal

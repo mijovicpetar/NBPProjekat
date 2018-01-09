@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using RedisCommunicator;
 
 namespace TestingRedisClient
@@ -11,9 +12,9 @@ namespace TestingRedisClient
             {
                 CommunicatorRedis redis = new CommunicatorRedis("localhost");
                 redis.SetValue("kljuc", "vrednost");
-                var result = redis.GetValue("kljuc");
+                byte[] result = (byte[])redis.GetValue("kljuc");
                 if (result != null)
-                    Console.WriteLine("Proso je.");
+                    Console.WriteLine(Encoding.UTF8.GetString(result));
             }
             catch (Exception exc)
             {
