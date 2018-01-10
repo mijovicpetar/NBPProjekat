@@ -41,6 +41,10 @@
       <Project>{116A8D22-3571-4D28-AEA6-A1CEAC5CFDC2}</Project>
       <Name>Neo4jCommunicator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataModel\DataModel.csproj">
+      <Project>{494795EA-3D9C-4D6D-B545-4DB4E19BBB27}</Project>
+      <Name>DataModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

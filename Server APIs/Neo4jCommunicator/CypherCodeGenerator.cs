@@ -14,16 +14,16 @@ namespace Neo4jCommunicator
 
         public static CypherCodeGenerator Instance { get => _instance; set => _instance = value; }
 
-        //Generates cypher query for adding a new Node of
-        //T type. Can be used for object of any class,
-        //it will automatically recognize the class name
-        //and all properties and property values.
-        public string GenerateNewNodeCypherQuery<T>(T tObject)
+        ///Generates cypher query for adding a new Node of
+        ///Can be used for object of any class that extends Node class
+        ///it will automatically recognize the class name
+        ///and all properties and property values.
+        public string GenerateNewNodeCypherQuery(Node tObject)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append("create(n: ");
 
-            Type type = typeof(T);
+            Type type = typeof(Node);
             builder.Append(type.Name + " {");
 
             var properties = type.GetProperties();
@@ -43,49 +43,25 @@ namespace Neo4jCommunicator
             return builder.ToString();
         }
 
-        //Gets any object that implements IRelation interface and generates
-        //cypher query for creating relation object in Neo4j database.
-        public string GenerateNewRelationCypherQuery(IRelationPrimar relObj)
+        ///Gets any object that extends Relationship class and generates
+        ///cypher query for creating relation object in Neo4j database.
+        public string GenerateNewRelationCypherQuery(Relationship relObj)
         {
-            Type type = relObj.GetType();
-
-            var firstObj = type.GetProperty("FirstObject");
-            var secondObj = type.GetProperty("SecondObject");
-
-            if (firstObj == null || secondObj == null)
-            {
-                throw new Exception("Passed relationship object doesn't implement IRelation interface.");
-            }
-
-            var foIdentName = firstObj.GetType().GetProperty("IdentificatorName");
-            var foIdentValue = firstObj.GetType().GetProperty("IdentificatorValue");
-            var soIdentName = secondObj.GetType().GetProperty("IdentificatorName");
-            var soIdentValue = secondObj.GetType().GetProperty("IdentificatorValue");
-
-            if(foIdentName == null || foIdentValue == null
-               || soIdentName == null || soIdentValue == null)
-            {
-                throw new Exception("Passed relationship object objects doesn't implement IIdentificator interface.");
-            }
-
-            string firstObjTypeName = firstObj.GetType().Name;
-            string secondObjTypeName = secondObj.GetType().Name;
-
             //MATCH(a:Person),(b:Person)
             //WHERE a.name = 'Node A' AND b.name = 'Node B'
             //CREATE (a)-[r:RELTYPE]->(b)
 
             StringBuilder builder = new StringBuilder();
             builder.Append("MATCH(a:");
-            builder.Append(firstObjTypeName);
+            builder.Append(relObj.FirstObject.GetType().Name);
             builder.Append("),(b:");
-            builder.Append(secondObjTypeName);
+            builder.Append(relObj.SecondObject.GetType().Name);
             builder.AppendLine();
-            builder.Append("WHERE a." + foIdentName.GetValue(foIdentName).ToString());
-            builder.Append(" = '" + foIdentValue.GetValue(foIdentValue).ToString());
-            builder.Append("' AND b." + soIdentName.GetValue(soIdentName).ToString());
-            builder.Append(" = '" + soIdentValue.GetValue(soIdentValue).ToString() + "'");
-            builder.Append("CREATE (a)-[r:" + type.Name + "]->(b)");
+            builder.Append("WHERE a." + relObj.FirstObject.IdentificatorName);
+            builder.Append(" = '" + relObj.FirstObject.IdentificatorValue.ToString());
+            builder.Append("' AND b." + relObj.SecondObject.IdentificatorName);
+            builder.Append(" = '" + relObj.SecondObject.IdentificatorValue.ToString() + "'");
+            builder.Append("CREATE (a)-[r:" + relObj.GetType().Name + "]->(b)");
 
             return builder.ToString();
         }

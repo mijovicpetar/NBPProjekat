@@ -1,19 +1,15 @@
 ﻿using System;
 namespace DataModel
 {
-    public interface IRelationPrimar { }
-
-    public interface IRelation<T1, T2> : IEquatable<IRelation<T1, T2>>, IRelationPrimar
+    public interface IRelation
     {
-        T1 FirstObject { get; set; }
-        T2 SecondObject { get; set; }
+        Node FirstObject { get; set; }
+        Node SecondObject { get; set; }
     }
 
-    public abstract class Relationship<T1, T2> : IRelation<T1, T2>
+    public abstract class Relationship : IRelation
     {
-        public abstract T1 FirstObject { get; set; }
-        public abstract T2 SecondObject { get; set; }
-
-        public abstract bool Equals(IRelation<T1, T2> other);
+        public abstract Node FirstObject { get; set; }
+        public abstract Node SecondObject { get; set; }
     }
 }

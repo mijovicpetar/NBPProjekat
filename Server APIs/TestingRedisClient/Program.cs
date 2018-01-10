@@ -10,7 +10,7 @@ namespace TestingRedisClient
         {
             try
             {
-                CommunicatorRedis redis = new CommunicatorRedis(
+                RedisManager redis = new RedisManager(
                     "77.81.229.55", 
                     6379, 
                     "nbpprojekat");

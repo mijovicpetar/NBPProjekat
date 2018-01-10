@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Neo4j.Driver.V1;
 
@@ -22,6 +23,26 @@ namespace Neo4jCommunicator
                     var result = tx.Run(query);
                 });
             }
+        }
+
+        public List<T> ExecuteQuery<T>(string query)
+        {
+            List<T> executionResult = new List<T>();
+
+            using (var session = _driver.Session())
+            {
+                session.WriteTransaction(tx =>
+                {
+                    var result = tx.Run(query);
+                    int count = result.Count();
+                    foreach(var row in result)
+                    {
+                        string resultTemp = row.ToString();
+                    }
+                });
+            }
+
+            return executionResult;
         }
 
         public void Dispose()
