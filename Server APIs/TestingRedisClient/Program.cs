@@ -10,7 +10,11 @@ namespace TestingRedisClient
         {
             try
             {
-                CommunicatorRedis redis = new CommunicatorRedis("localhost");
+                CommunicatorRedis redis = new CommunicatorRedis(
+                    "77.81.229.55", 
+                    6379, 
+                    "nbpprojekat");
+                
                 redis.SetValue("kljuc", "vrednost");
                 byte[] result = (byte[])redis.GetValue("kljuc");
                 if (result != null)

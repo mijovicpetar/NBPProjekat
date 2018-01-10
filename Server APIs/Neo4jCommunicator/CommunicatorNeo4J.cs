@@ -13,18 +13,15 @@ namespace Neo4jCommunicator
             _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(user, password));
         }
 
-        public object Query(string query)
+        public void ExecuteQuery(string query)
         {
             using (var session = _driver.Session())
             {
-                var greeting = session.WriteTransaction(tx =>
+                session.WriteTransaction(tx =>
                 {
                     var result = tx.Run(query);
-                    return result.First()[0].As<string>();
                 });
             }
-
-            return null;
         }
 
         public void Dispose()

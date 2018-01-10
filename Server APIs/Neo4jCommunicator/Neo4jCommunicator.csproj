@@ -35,9 +35,17 @@
   <ItemGroup>
     <Compile Include="CommunicatorNeo4J.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CypherCodeGenerator.cs" />
+    <Compile Include="Neo4jManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataModel\DataModel.csproj">
+      <Project>{494795EA-3D9C-4D6D-B545-4DB4E19BBB27}</Project>
+      <Name>DataModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
