@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#323232">
+    <item
+        android:id="@+id/itemOdaberi"
+        android:background="#0050a0"
+        android:title="Odaberi sliku" />
+    <item
+        android:id="@+id/itemKamera"
+        android:background="#0050a0"
+        android:title="Kamera" />
+</menu>

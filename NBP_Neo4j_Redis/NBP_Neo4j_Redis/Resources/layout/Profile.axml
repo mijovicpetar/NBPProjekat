@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C1C1C1"
+    android:minWidth="25px"
+    android:minHeight="25px">
+   <android.support.percent.PercentRelativeLayout
+      app:layout_heightPercent ="30%"
+      app:layout_marginTopPercent="1%"
+      app:layout_marginLeftPercent ="20%"
+      app:layout_widthPercent ="60%"
+      android:id="@+id/containerProfilne">
+    <ImageView
+        app:layout_widthPercent="100%"
+        app:layout_heightPercent="100%"
+        app:layout_marginTopPercent="0%"
+        android:src="@drawable/Mladen"
+        android:id="@+id/PprofilnaSlika"
+        android:layout_centerInParent="true" />
+  </android.support.percent.PercentRelativeLayout>
+  <android.support.percent.PercentRelativeLayout
+    app:layout_widthPercent="100%"
+    app:layout_heightPercent="6%"
+    app:layout_marginTopPercent="31%" >
+ <!--   <TextView
+        android:layout_below="@id/containerProfilne"
+        android:textColor="#00008B"
+        android:fontFamily="Calibri"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:padding="3dp" 
+        
+        android:textAlignment="center"
+        app:layout_heightPercent="6%"
+        app:layout_widthPercent="70%"
+        android:layout_centerInParent="true"
+        app:layout_marginTopPercent="0%"
+        android:id="@+id/TextViewImePrezime"
+        android:layout_centerVertical="true" />-->
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentCenter="true"
+    android:layout_centerVertical="true"
+    android:id="@+id/TextViewImePrezime"
+    android:textStyle="italic"
+    android:fontFamily="Calibri" />
+  </android.support.percent.PercentRelativeLayout>
+</android.support.percent.PercentRelativeLayout>
