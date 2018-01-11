@@ -22,14 +22,21 @@ namespace Neo4jCommunicator
             string user = "neo4j";
             string password = "nbpprojekat";
 
-            client = new CommunicatorNeo4J(server, uri, user, password);
+            try
+            {
+                client = new CommunicatorNeo4J(server, uri, user, password);
+            }
+            catch(Exception exc)
+            {
+                Console.WriteLine(exc.Message);
+            }
         }
 
         /// <summary>
         /// Generates the new node in connected neo4j database.
         /// </summary>
         /// <param name="tObject">Object of class that extends Node class.</param>
-        public void GenerateNewNode(Node tObject)
+        public void GenerateNewNode(object tObject)
         {
             string query = CypherCodeGenerator.Instance.GenerateNewNodeCypherQuery(tObject);
             client.ExecuteQuery(query);
@@ -55,6 +62,7 @@ namespace Neo4jCommunicator
         /// generated and executed. It returns all node of the target path in
         /// order like this: (a)-->(b)-->(c). If you want to use the node in
         /// where clause set the UseInWhereClause property to true.
+        /// This should be used only if all Nodes are the same type.
         /// </typeparam>
         public List<T> ExecuteMatchQuery<T> (List<Node> conditions)
         {

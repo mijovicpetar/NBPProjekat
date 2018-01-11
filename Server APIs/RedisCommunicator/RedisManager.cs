@@ -28,5 +28,10 @@ namespace RedisCommunicator
         {
             return redis.Get(key);
         }
+
+        public void SetJsonValue(string key, object complexObj)
+        {
+            redis.Add(key, Newtonsoft.Json.JsonConvert.SerializeObject(complexObj));
+        }
     }
 }

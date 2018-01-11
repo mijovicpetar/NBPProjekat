@@ -23,12 +23,12 @@ namespace Neo4jCommunicator
         /// </summary>
         /// <returns>The new node cypher query.</returns>
         /// <param name="tObject">T object.</param>
-        public string GenerateNewNodeCypherQuery(Node tObject)
+        public string GenerateNewNodeCypherQuery(object tObject)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append("create(n: ");
 
-            Type type = typeof(Node);
+            Type type = tObject.GetType();
             builder.Append(type.Name + " {");
 
             var properties = type.GetProperties();
@@ -37,9 +37,12 @@ namespace Neo4jCommunicator
 
             foreach(var property in properties)
             {
-                var value = property.GetValue(tObject);
-                string cypherProperty = property.Name + ": '" + value.ToString() + "', ";
-                builder.Append(cypherProperty);
+                if (ValidAtribute((property.Name)))
+                {
+                    var value = property.GetValue(tObject);
+                    string cypherProperty = property.Name + ": '" + value.ToString() + "', ";
+                    builder.Append(cypherProperty);
+                }
             }
 
             builder = new StringBuilder(builder.ToString().TrimEnd().TrimEnd(','));
@@ -64,13 +67,12 @@ namespace Neo4jCommunicator
             builder.Append("MATCH(a:");
             builder.Append(relObj.FirstObject.GetType().Name);
             builder.Append("),(b:");
-            builder.Append(relObj.SecondObject.GetType().Name);
-            builder.AppendLine();
-            builder.Append("WHERE a." + relObj.FirstObject.IdentificatorName);
+            builder.Append(relObj.SecondObject.GetType().Name + ")");
+            builder.Append(" WHERE a." + relObj.FirstObject.IdentificatorName);
             builder.Append(" = '" + relObj.FirstObject.IdentificatorValue.ToString());
             builder.Append("' AND b." + relObj.SecondObject.IdentificatorName);
             builder.Append(" = '" + relObj.SecondObject.IdentificatorValue.ToString() + "'");
-            builder.Append("CREATE (a)-[r:" + relObj.GetType().Name + "]->(b)");
+            builder.Append(" CREATE (a)-[r:" + relObj.GetType().Name + "]->(b)");
 
             return builder.ToString();
         }
@@ -94,26 +96,24 @@ namespace Neo4jCommunicator
 
             paramsList.ForEach((param) => 
             {
-                string temp = "(n" + ++counter + ": " + param.GetType().Name;
+                string temp = "(n" + ++counter + ": " + param.GetType().Name + ")";
                 builder.Append(temp);
                 if (counter != paramsList.Count)
                     builder.Append("-- > ");
             });
 
             counter = 0;
-            builder.AppendLine();
-            builder.Append("WHERE ");
+            builder.Append(" WHERE ");
 
             paramsList.ForEach((param) =>
             {
-                builder.Append("n" + ++counter + "." + param.IdentificatorName + " = " + param.IdentificatorValue);
+                builder.Append("n" + ++counter + "." + param.IdentificatorName + " = '" + param.IdentificatorValue + "'");
                 if (counter != paramsList.Count)
                     builder.Append(" AND ");
             });
 
             counter = 0;
-            builder.AppendLine();
-            builder.Append("RETURN ");
+            builder.Append(" RETURN ");
 
             paramsList.ForEach((param) =>
             {
@@ -123,6 +123,16 @@ namespace Neo4jCommunicator
             });
 
             return builder.ToString();
+        }
+
+        private bool ValidAtribute(string atrName)
+        {
+            if (atrName != "IdentificatorName"
+                && atrName != "IdentificatorValue"
+                && atrName != "UseInWhereClause")
+                return true;
+            else
+                return false;
         }
     }
 }
