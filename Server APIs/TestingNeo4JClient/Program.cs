@@ -10,11 +10,13 @@ namespace TestingNeo4JClient
         public static void Main(string[] args)
         {
             TestClass obj = new TestClass();
-            obj.Property1 = "prop1";
-            obj.Property2 = "prop2";
+            obj.IdentificatorName = "IdentificatorValue";
+            obj.IdentificatorValue = "prop2";
 
-            List<TestClass> result = Neo4jManager.Instance.ExecuteMatchQuery<TestClass>("MATCH (n:TestClass) RETURN n LIMIT 25");
-            Console.WriteLine(result[0].ToString());
+            //List<TestClass> result = Neo4jManager.Instance.ExecuteMatchQuery<TestClass>("MATCH (n:TestClass) RETURN n LIMIT 25");
+            //Console.WriteLine(result[0].ToString());
+
+            Neo4jManager.Instance.GenerateNewNode(obj);
         }
     }
 }

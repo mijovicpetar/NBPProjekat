@@ -1,10 +1,17 @@
 ﻿using System;
+using DataModel;
+
 namespace TestingNeo4JClient
 {
-    public class TestClass
+    public class TestClass :Node
     {
-        public string Property1 { get; set; }
-        public string Property2 { get; set; }
+        string _identificatorName;
+        object _identificatorValue;
+        bool _useInWhereClaues;
+
+        public override string IdentificatorName { get => _identificatorName; set => _identificatorName = value; }
+        public override object IdentificatorValue { get => _identificatorValue; set => _identificatorValue = value; }
+        public override bool UseInWhereClause { get => _useInWhereClaues; set => _useInWhereClaues = value; }
 
         public TestClass()
         {
@@ -12,7 +19,7 @@ namespace TestingNeo4JClient
 
         public override string ToString()
         {
-            return string.Format("[TestClass: Property1={0}, Property2={1}]", Property1, Property2);
+            return string.Format("[TestClass: IdentificatorName={0}, IdentificatorValue={1}, UseInWhereClause={2}]", IdentificatorName, IdentificatorValue, UseInWhereClause);
         }
     }
 }
