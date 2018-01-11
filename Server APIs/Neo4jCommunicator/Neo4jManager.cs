@@ -13,13 +13,16 @@ namespace Neo4jCommunicator
         static Neo4jManager _instance = new Neo4jManager();
         CommunicatorNeo4J client;
 
+        public static Neo4jManager Instance { get => _instance; }
+
         private Neo4jManager()
         {
             string server = "bolt://localhost:7687";
+            string uri = "http://localhost:7474/db/data";
             string user = "neo4j";
             string password = "nbpprojekat";
 
-            client = new CommunicatorNeo4J(server, user, password);
+            client = new CommunicatorNeo4J(server, uri, user, password);
         }
 
         /// <summary>
@@ -49,11 +52,14 @@ namespace Neo4jCommunicator
         /// <param name="conditions">Conditions.</param>
         /// <typeparam name="T">List of Node object, it uses their properties
         /// IdentificatorName and IdentificatorValue based on which query is
-        /// generated and executed.
+        /// generated and executed. It returns all node of the target path in
+        /// order like this: (a)-->(b)-->(c). If you want to use the node in
+        /// where clause set the UseInWhereClause property to true.
         /// </typeparam>
         public List<T> ExecuteMatchQuery<T> (List<Node> conditions)
         {
-            return null;
+            string query = CypherCodeGenerator.Instance.GenerateMatchCypherQuery(conditions);
+            return client.ExecuteQuery<T>(query);
         }
 
         /// <summary>
@@ -80,7 +86,5 @@ namespace Neo4jCommunicator
         {
             client.ExecuteQuery(query);
         }
-
-        public static Neo4jManager Instance { get => _instance; }
     }
 }

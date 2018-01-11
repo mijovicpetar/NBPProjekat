@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using DataModel;
 
@@ -14,10 +15,14 @@ namespace Neo4jCommunicator
 
         public static CypherCodeGenerator Instance { get => _instance; set => _instance = value; }
 
-        ///Generates cypher query for adding a new Node of
-        ///Can be used for object of any class that extends Node class
-        ///it will automatically recognize the class name
-        ///and all properties and property values.
+        /// <summary>
+        /// Generates cypher query for adding a new Node of
+        /// Can be used for object of any class that extends Node class
+        /// it will automatically recognize the class name
+        /// and all properties and property values.
+        /// </summary>
+        /// <returns>The new node cypher query.</returns>
+        /// <param name="tObject">T object.</param>
         public string GenerateNewNodeCypherQuery(Node tObject)
         {
             StringBuilder builder = new StringBuilder();
@@ -43,8 +48,12 @@ namespace Neo4jCommunicator
             return builder.ToString();
         }
 
-        ///Gets any object that extends Relationship class and generates
-        ///cypher query for creating relation object in Neo4j database.
+        /// <summary>
+        /// Gets any object that extends Relationship class and generates
+        /// cypher query for creating relation object in Neo4j database.
+        /// </summary>
+        /// <returns>The new relation cypher query.</returns>
+        /// <param name="relObj">Rel object.</param>
         public string GenerateNewRelationCypherQuery(Relationship relObj)
         {
             //MATCH(a:Person),(b:Person)
@@ -62,6 +71,56 @@ namespace Neo4jCommunicator
             builder.Append("' AND b." + relObj.SecondObject.IdentificatorName);
             builder.Append(" = '" + relObj.SecondObject.IdentificatorValue.ToString() + "'");
             builder.Append("CREATE (a)-[r:" + relObj.GetType().Name + "]->(b)");
+
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// Generates the match cypher query from list of Nodes.
+        /// It use every node for the path and those who have true
+        /// for UseInWhereClause for where clause.
+        /// </summary>
+        /// <returns>The match cypher query.</returns>
+        /// <param name="paramsList">Parameters list.</param>
+        public string GenerateMatchCypherQuery(List<Node> paramsList)
+        {
+            //MATCH(node1: Label1)-- > (node2: Label2)
+            //WHERE node1.propertyA = 'value'
+            //RETURN node1, node2
+
+            StringBuilder builder = new StringBuilder();
+            builder.Append("MATCH");
+            int counter = 0;
+
+            paramsList.ForEach((param) => 
+            {
+                string temp = "(n" + ++counter + ": " + param.GetType().Name;
+                builder.Append(temp);
+                if (counter != paramsList.Count)
+                    builder.Append("-- > ");
+            });
+
+            counter = 0;
+            builder.AppendLine();
+            builder.Append("WHERE ");
+
+            paramsList.ForEach((param) =>
+            {
+                builder.Append("n" + ++counter + "." + param.IdentificatorName + " = " + param.IdentificatorValue);
+                if (counter != paramsList.Count)
+                    builder.Append(" AND ");
+            });
+
+            counter = 0;
+            builder.AppendLine();
+            builder.Append("RETURN ");
+
+            paramsList.ForEach((param) =>
+            {
+                builder.Append("n" + ++counter);
+                if (counter != paramsList.Count)
+                    builder.Append(", ");
+            });
 
             return builder.ToString();
         }

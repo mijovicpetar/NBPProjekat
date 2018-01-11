@@ -5,11 +5,13 @@ namespace DataModel
     {
         string IdentificatorName { get; set; }
         object IdentificatorValue { get; set; }
+        bool UseInWhereClause { get; set; }
     }
 
     public abstract class Node : IIdentificator
     {
         public abstract string IdentificatorName { get; set; }
         public abstract object IdentificatorValue { get; set; }
+        public abstract bool UseInWhereClause { get; set; }
     }
 }
