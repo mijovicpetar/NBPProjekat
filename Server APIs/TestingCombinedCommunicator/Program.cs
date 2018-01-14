@@ -41,27 +41,27 @@ namespace TestingCombinedCommunicator
         {
             CombinedAPI.DataAPI.Instance.DeleteEvrything();
 
-            Profil profil = CreateProfil();
+            //Profil profil = CreateProfil();
 
-            DataAPI.Instance.Register(profil);
-            profil = DataAPI.Instance.Login("mijovicpetar", "123");
+            //DataAPI.Instance.Register(profil);
+            //profil = DataAPI.Instance.Login("mijovicpetar", "123");
 
-            profil.IdentificatorName = "KorisnickoIme";
-            profil.IdentificatorValue = "mijovicpetar";
+            //profil.IdentificatorName = "KorisnickoIme";
+            //profil.IdentificatorValue = "mijovicpetar";
 
-            var res1 = DataAPI.Instance.GetAllUsersUsernames();
-            var res2 = DataAPI.Instance.GetAllActiveUsersUsernames();
-            DataAPI.Instance.Logout(profil);
-            var res3 = DataAPI.Instance.GetAllActiveUsersUsernames();
+            //var res1 = DataAPI.Instance.GetAllUsersUsernames();
+            //var res2 = DataAPI.Instance.GetAllActiveUsersUsernames();
+            //DataAPI.Instance.Logout(profil);
+            //var res3 = DataAPI.Instance.GetAllActiveUsersUsernames();
 
-            Slika slika = CreateSlika();
-            DataAPI.Instance.CreateEntity(slika);
+            //Slika slika = CreateSlika();
+            //DataAPI.Instance.CreateEntity(slika);
 
-            Lajk lajk = new Lajk(profil, slika);
-            DataAPI.Instance.CreateRelationship(lajk);
+            //Lajk lajk = new Lajk(profil, slika);
+            //DataAPI.Instance.CreateRelationship(lajk);
 
-            var res4 = DataAPI.Instance.GetAllLikesForPhoto(slika);
-            var res5 = DataAPI.Instance.GetAllPicturesForProfile(profil);
+            //var res4 = DataAPI.Instance.GetAllLikesForPhoto(slika);
+            //var res5 = DataAPI.Instance.GetAllPicturesForProfile(profil);
         }
     }
 }
