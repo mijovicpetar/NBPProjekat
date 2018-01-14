@@ -9,7 +9,9 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using NBP_Neo4j_Redis.Entities;
+using NBP_Neo4j_Redis.TLEntities;
+using CombinedAPI;
+using CombinedAPI.Entities;
 namespace NBP_Neo4j_Redis.Controllers
 {
     public class SignLogInController
@@ -30,14 +32,28 @@ namespace NBP_Neo4j_Redis.Controllers
        
         #endregion
         
-        Profil _mojProfil;
+        TLProfil _mojProfil;
 
 
-        public Profil MojProfil { get => _mojProfil; set => _mojProfil = value; }
+        public TLProfil MojProfil { get => _mojProfil; set => _mojProfil = value; }
 
         private SignLogInController()
         {
-            MojProfil = new Profil();
+            MojProfil = new TLProfil();
+        }
+        public string RegistrujSe()
+        {
+            Profil profil = MojProfil.ReturnBaseProfile();
+            profil.IdentificatorValue = profil.KorisnickoIme;
+            RegistrationOutcome result = DataAPI.Instance.Register(profil);
+            string stringResult;
+            if (result == RegistrationOutcome.FALIURE)
+                stringResult = "Neuspesna registracija.";
+            else if (result == RegistrationOutcome.USERNAME_IN_USE)
+                stringResult = "Korisnicko ime vec postoji.";
+            else
+                stringResult = null;
+            return stringResult;
         }
     }
 }

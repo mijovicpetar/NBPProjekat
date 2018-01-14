@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_marginRightPercent ="2%"
+      app:layout_marginTopPercent ="1%"
+      app:layout_widthPercent ="11%"
+      android:layout_alignParentRight="true"
+      android:src="@drawable/editImage"
+      android:id="@+id/imageEdit" />
+  
+  <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_marginRightPercent ="2%"
+    app:layout_marginTopPercent ="1%"
+    app:layout_widthPercent ="11%"
+    android:layout_alignParentRight="true"
+    android:src="@drawable/OkImage"
+    android:id="@+id/imageOk" />
+  
+    <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_marginLeftPercent ="2%"
+    app:layout_marginTopPercent ="1%"
+    app:layout_widthPercent ="11%"
+    android:layout_alignParentLeft="true"
+    android:src="@drawable/delete"
+    android:id="@+id/imageDelete" />
+  
+  <android.support.percent.PercentRelativeLayout
+    android:layout_below="@+id/imageDelete"
+    app:layout_heightPercent ="50%"
+    app:layout_marginTopPercent="1%"
+    app:layout_marginLeftPercent ="1%"
+    app:layout_widthPercent ="98%"
+    android:id="@+id/containerProfilne">
+    <ImageView
+        app:layout_widthPercent="100%"
+        app:layout_heightPercent="100%"
+        app:layout_marginTopPercent="0%"
+        android:src="@drawable/Mladen"
+        android:id="@+id/profilnaSlika"
+        android:layout_centerInParent="true" />
+  </android.support.percent.PercentRelativeLayout>
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/containerProfilne"
+      app:layout_marginLeftPercent ="2%"
+      app:layout_marginTopPercent ="2%"
+      app:arrowLocation="left"
+      android:id="@+id/opis_slike"
+      android:textSize="17sp"
+       android:fontFamily="Calibri"
+      android:textStyle="normal" />
+
+  <EditText
+    app:layout_widthPercent="70%"
+    android:layout_height="26sp"
+    app:layout_marginLeftPercent ="2%"
+    app:layout_marginTopPercent ="1%"
+    android:padding="6dp"
+    android:hint="Opis slike"
+    android:layout_below="@+id/containerProfilne"
+    app:arrowLocation="left"
+    android:id="@+id/edit_opis_slike"
+    android:textSize="12sp"
+     android:fontFamily="Calibri"
+     android:inputType="text"
+    android:textStyle="normal" />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/opis_slike"
+      app:layout_marginLeftPercent ="2%"
+      app:arrowLocation="left"
+      android:id="@+id/lokacija"
+      android:textSize="17sp"
+       android:fontFamily="Calibri"
+      android:textStyle="normal" />
+
+  <EditText
+    app:layout_widthPercent="70%"
+    android:layout_height="26sp"
+    app:layout_marginLeftPercent ="2%"
+    app:layout_marginTopPercent ="1%"
+    android:padding="6dp"
+    android:hint="Lokacija"
+    android:layout_below="@+id/edit_opis_slike"
+    app:arrowLocation="left"
+    android:id="@+id/edit_lokacija"
+    android:textSize="12sp"
+     android:fontFamily="Calibri"
+     android:inputType="text"
+    android:textStyle="normal" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/lokacija"
+    app:layout_marginLeftPercent ="2%"
+    app:arrowLocation="left"
+    android:id="@+id/lajkovi"
+    android:text="Broj osoba kojima se sviđa: "
+    android:textSize="17sp"
+     android:fontFamily="Calibri"
+    android:textStyle="normal" />
+
+  <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_marginRightPercent ="2%"
+    app:layout_marginTopPercent ="2%"
+     android:layout_alignParentRight="true"
+     android:layout_toLeftOf="@+id/opis_slike"
+    android:layout_below="@+id/containerProfilne"
+    android:layout_marginLeft="5dp"
+          android:src="@drawable/like"
+          android:id="@+id/lajk"
+  />
+  <ListView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_marginLeftPercent ="1%"
+    app:layout_marginRightPercent ="2%"
+    android:layout_below="@+id/lajkovi"
+    android:divider="@android:color/transparent"
+    android:dividerHeight="16dp"
+    android:id="@+id/list_of_persons"
+    android:layout_marginBottom="16dp"
+    />
+</android.support.percent.PercentRelativeLayout>

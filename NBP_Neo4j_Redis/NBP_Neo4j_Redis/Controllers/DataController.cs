@@ -9,12 +9,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using NBP_Neo4j_Redis.Entities;
+using NBP_Neo4j_Redis.TLEntities;
+
 namespace NBP_Neo4j_Redis.Controllers
 {
     public class DataController
     {
-
         #region Singleton
         private static DataController _instance;
         public static DataController Instance
@@ -34,13 +34,13 @@ namespace NBP_Neo4j_Redis.Controllers
         
         #endregion
 
-        Profil _odabraniProfil;
+        TLProfil _odabraniProfil;
 
-        public Profil OdabraniProfil { get => _odabraniProfil; set => _odabraniProfil = value; }
+        public TLProfil OdabraniProfil { get => _odabraniProfil; set => _odabraniProfil = value; }
         #region Constructor
         private DataController()
         {
-            OdabraniProfil = new Profil();
+            OdabraniProfil = new TLProfil();
         }
         #endregion
 

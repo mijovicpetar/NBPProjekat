@@ -70,7 +70,7 @@ namespace CombinedAPI
                     return RegistrationOutcome.USERNAME_IN_USE;
                 }
             }
-            catch (Exception)
+            catch (Exception exc)
             {
                 return RegistrationOutcome.FALIURE;
             }

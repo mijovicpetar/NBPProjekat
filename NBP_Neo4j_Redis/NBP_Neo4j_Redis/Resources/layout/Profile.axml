@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C1C1C1"
+    android:background="#242424"
     android:minWidth="25px"
     android:minHeight="25px">
-   <android.support.percent.PercentRelativeLayout
+  <android.support.percent.PercentRelativeLayout
       app:layout_heightPercent ="30%"
       app:layout_marginTopPercent="1%"
       app:layout_marginLeftPercent ="20%"
       app:layout_widthPercent ="60%"
       android:id="@+id/containerProfilne">
+    
     <ImageView
         app:layout_widthPercent="100%"
         app:layout_heightPercent="100%"
@@ -20,32 +21,220 @@
         android:id="@+id/PprofilnaSlika"
         android:layout_centerInParent="true" />
   </android.support.percent.PercentRelativeLayout>
-  <android.support.percent.PercentRelativeLayout
-    app:layout_widthPercent="100%"
-    app:layout_heightPercent="6%"
-    app:layout_marginTopPercent="31%" >
- <!--   <TextView
-        android:layout_below="@id/containerProfilne"
-        android:textColor="#00008B"
-        android:fontFamily="Calibri"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:padding="3dp" 
-        
-        android:textAlignment="center"
-        app:layout_heightPercent="6%"
-        app:layout_widthPercent="70%"
-        android:layout_centerInParent="true"
-        app:layout_marginTopPercent="0%"
-        android:id="@+id/TextViewImePrezime"
-        android:layout_centerVertical="true" />-->
-    <TextView
+
+  <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentCenter="true"
-    android:layout_centerVertical="true"
+    app:layout_marginRightPercent ="2%"
+    app:layout_marginTopPercent ="1%"
+    app:layout_widthPercent ="11%"
+    android:layout_alignParentRight="true"
+    android:src="@drawable/editImage"
+    android:id="@+id/imageViewEdit" />
+  <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_marginRightPercent ="2%"
+    app:layout_marginTopPercent ="1%"
+    app:layout_widthPercent ="11%"
+    android:layout_alignParentRight="true"
+    android:src="@drawable/Ok"
+    android:id="@+id/imageViewOk" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/containerProfilne"
+    android:textColor="#FFFFFF"
+    app:layout_marginTopPercent ="1%"
+    android:gravity="center"
+    app:layout_widthPercent ="100%"
+    android:background="#919191"
     android:id="@+id/TextViewImePrezime"
-    android:textStyle="italic"
-    android:fontFamily="Calibri" />
-  </android.support.percent.PercentRelativeLayout>
+    android:textSize="25sp"
+    android:fontFamily="Calibri"
+    android:textStyle="normal" />
+
+  <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/TextViewImePrezime"
+     android:textColor="#FFFFFF"
+     app:layout_marginTopPercent ="1%"
+     app:layout_marginLeftPercent ="2%"
+     android:gravity="left"
+     app:layout_widthPercent ="33%"
+     android:id="@+id/STextViewDatumRodjenja"
+     android:text="Datum rođenja: "
+     android:textSize="15sp"
+     android:fontFamily="Calibri"
+     android:textStyle="normal" />
+
+  <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/TextViewImePrezime"
+     android:layout_toRightOf="@+id/STextViewDatumRodjenja"
+     android:textColor="#FFFFFF"
+     app:layout_marginTopPercent ="1%"
+     app:layout_widthPercent ="63%"
+     app:layout_marginRightPercent ="2%"
+     android:id="@+id/TextViewDatumRodjenja"
+     android:textSize="15sp"
+     android:fontFamily="Calibri"
+     android:textStyle="bold" />
+  
+  <EditText
+     android:layout_width="wrap_content"
+     android:layout_height="26sp"
+     android:padding="1dp"
+     android:layout_below="@+id/TextViewImePrezime"
+     android:layout_toRightOf="@+id/STextViewDatumRodjenja"
+     android:textColor="#FFFFFF"
+     app:layout_marginTopPercent ="1%"
+     app:layout_widthPercent ="63%"
+     app:layout_marginRightPercent ="2%"
+     android:id="@+id/EditTextDatumRodjenja"
+     android:textSize="15sp"
+     android:fontFamily="Calibri"     
+     android:background="#242424"     
+     android:inputType="text"   
+     android:textStyle="normal" />
+
+
+  <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/STextViewDatumRodjenja"
+     android:textColor="#FFFFFF"
+     app:layout_marginTopPercent ="1%"
+     app:layout_marginLeftPercent ="2%"
+     android:gravity="left"
+     app:layout_widthPercent ="33%"
+     android:id="@+id/STextViewMestoStanovanja"
+     android:text="Mesto stanovanja: "
+     android:textSize="15sp"
+     android:fontFamily="Calibri"
+     android:textStyle="normal" />
+  
+    <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/TextViewDatumRodjenja"
+     android:layout_toRightOf="@+id/STextViewMestoStanovanja"
+     android:textColor="#FFFFFF"
+     app:layout_marginTopPercent ="1%"
+     android:gravity="left"
+     app:layout_widthPercent ="33%"
+     android:id="@+id/TextViewMestoStanovanja"
+     android:textSize="15sp"
+     android:fontFamily="Calibri"
+     android:textStyle="bold" />
+  
+  <EditText
+     android:layout_width="wrap_content"
+     android:layout_height="26sp"
+     android:padding="3dp"
+     android:layout_below="@+id/EditTextDatumRodjenja"
+     android:layout_toRightOf="@+id/STextViewDatumRodjenja"
+     android:textColor="#FFFFFF"
+     app:layout_marginTopPercent ="1%"
+     app:layout_widthPercent ="63%"
+     app:layout_marginRightPercent ="2%"
+     android:id="@+id/EditTextMestoStanovanja"
+     android:textSize="15sp"
+     android:inputType="text"
+     android:fontFamily="Calibri"
+     android:background="#242424"
+     android:textStyle="normal" />
+
+
+  <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/STextViewMestoStanovanja"
+     android:textColor="#FFFFFF"
+     app:layout_marginTopPercent ="1%"
+     app:layout_marginLeftPercent ="2%"
+     android:gravity="left"
+     app:layout_widthPercent ="33%"
+     android:id="@+id/STextViewPol"
+     android:text="Pol: "
+     android:textSize="15sp"
+     android:fontFamily="Calibri"
+     android:textStyle="normal" />
+
+  <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_toRightOf="@+id/STextViewPol"
+     android:layout_below="@+id/STextViewMestoStanovanja"
+     android:textColor="#FFFFFF"
+     app:layout_marginTopPercent ="1%"
+     app:layout_widthPercent ="63%"
+     app:layout_marginRightPercent ="2%"
+     android:id="@+id/TextViewPol"
+     android:textSize="15sp"
+     android:fontFamily="Calibri"
+     android:textStyle="bold" />
+  
+  <EditText
+     android:layout_width="wrap_content"
+     android:layout_height="26sp"
+     android:padding="6dp"
+     android:layout_toRightOf="@+id/STextViewPol"
+     android:layout_below="@+id/EditTextMestoStanovanja"
+     android:textColor="#FFFFFF"
+     app:layout_marginTopPercent ="1%"
+     app:layout_widthPercent ="63%"
+     app:layout_marginRightPercent ="2%"
+     android:id="@+id/EditTextPol"
+     android:background="#242424"
+     android:textSize="15sp"
+     android:fontFamily="Calibri"
+     android:inputType="text"
+     android:textStyle="normal" />
+  
+  <Button
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:textSize="15sp"
+     android:fontFamily="Calibri"
+     android:textStyle="bold"
+     app:layout_widthPercent ="50%"
+     app:layout_heightPercent ="7%"
+     android:textColor="#FFFFFF"
+     android:background="#0050A0"
+     android:text="Dodate fotografije"
+     android:id="@+id/buttonIzbaceneSlike"
+     android:layout_alignParentBottom="true"/>
+
+  <Button
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:textSize="15sp"
+     android:fontFamily="Calibri"
+     android:textStyle="bold"
+     app:layout_widthPercent ="50%"
+     app:layout_heightPercent ="7%"
+     android:textColor="#FFFFFF"
+     android:text="Označene fotografije"
+     android:id="@+id/buttonOznaceneSlike"
+     android:background="#00008B"
+     android:layout_toRightOf="@+id/buttonIzbaceneSlike"
+     android:layout_alignParentBottom="true"/>
+
+  <RelativeLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:layout_below="@+id/STextViewPol"
+     android:layout_above="@+id/buttonIzbaceneSlike">
+    
+    <ListView
+      android:id="@+id/ListViewImages"
+      android:layout_height="match_parent"
+      android:layout_width="match_parent"/>
+  
+  </RelativeLayout>
+
 </android.support.percent.PercentRelativeLayout>

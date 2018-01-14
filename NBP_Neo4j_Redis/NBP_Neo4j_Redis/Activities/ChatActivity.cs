@@ -50,19 +50,21 @@ namespace NBP_Neo4j_Redis.Activities
         }
         private void OsposobiAdapter()
         {
+            bool send = false;
             for (int i = 0; i < 20; i++)
             {
                 MessageContent message = new MessageContent();
                 int broj = i + 1;
-                message.Message = "Probna poruka " +broj;
+                message.Message = "Probna poruka " + broj;
                 message.Name = "Ime " + broj;
                 message.Time = DateTime.Now.ToShortTimeString();
+                message.IsSend = send;
+                send = !send;
                 _listMessage.Add(message);
             }
 
             ListViewAdapter adapter = new ListViewAdapter(this, _listMessage);
-            _listChat.Adapter = adapter; 
-
+            _listChat.Adapter = adapter;
         }
 
 

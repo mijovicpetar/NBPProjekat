@@ -18,8 +18,8 @@ using Android.Provider;
 using Android.Content.PM;
 using NBP_Neo4j_Redis.Controllers;
 using Android.Graphics.Drawables;
-using NBP_Neo4j_Redis.Entities;
-
+using CombinedAPI.Entities;
+using CombinedAPI;
 namespace NBP_Neo4j_Redis.Activities
 {
     [Activity(MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
@@ -111,13 +111,15 @@ namespace NBP_Neo4j_Redis.Activities
         public void PostaviSliku(Bitmap bitmap)
         {
             _profilnaSlika.SetImageBitmap(bitmap);
-            SignLogInController.Instance.MojProfil.Profilna = new Slika(bitmap);
+            string array = BitmapConverter.ConvertBitmapToString(bitmap);
+            SignLogInController.Instance.MojProfil.Profilna = new Slika();
+            SignLogInController.Instance.MojProfil.Profilna.Sadrzaj = array;
         }
         public void UcitajPocetnuSliku()
         {
             Bitmap pocetnaSlika = BitmapFactory.DecodeResource(Resources, Resource.Drawable.user);
             _profilnaSlika.SetImageBitmap(pocetnaSlika);
-            SignLogInController.Instance.MojProfil.Profilna.Sadrzaj = pocetnaSlika;
+            SignLogInController.Instance.MojProfil.Profilna.Sadrzaj = BitmapConverter.ConvertBitmapToString(pocetnaSlika);
         }
         #endregion
 
@@ -204,7 +206,7 @@ namespace NBP_Neo4j_Redis.Activities
         private void Ok_Click(object sender, DialogClickEventArgs e)
         {
         }
-        private void _profilnaSlika_Click(object sender, EventArgs e)
+        public void _profilnaSlika_Click(object sender, EventArgs e)
         {
             PopupMenu popup = new PopupMenu(this, _profilnaSlika);
             popup.Inflate(Resource.Layout.PopUpProfilnaSlikaMenu);
@@ -233,7 +235,19 @@ namespace NBP_Neo4j_Redis.Activities
             {
                 UcitajVrednosti();
                 DataController.Instance.OdabraniProfil = SignLogInController.Instance.MojProfil;
-                StartActivity(typeof(ProfileActivity));
+
+                string result = SignLogInController.Instance.RegistrujSe();
+
+                if (result !=null)
+                {
+                    var upozorenje = new AlertDialog.Builder(this);
+                    upozorenje.SetTitle("Upozorenje!");
+                    upozorenje.SetNeutralButton("Ok", Ok_Click);
+                    upozorenje.SetMessage(result);
+                    upozorenje.Show();
+                }
+                else
+                    StartActivity(typeof(ProfileActivity));
             }
         }
 

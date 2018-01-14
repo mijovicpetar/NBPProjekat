@@ -17,14 +17,15 @@ namespace NBP_Neo4j_Redis
         public string Name { get; set; }
         public string Message { get; set; }
         public string Time { get; set; }
-
+        public bool IsSend { get; set; }
         public MessageContent() { }
 
-        public MessageContent(string name, string Message)
+        public MessageContent(string name, string Message, bool send)
         {
             this.Name = name;
             this.Message = Message;
             this.Time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            IsSend = send;
         }
     }
 }
