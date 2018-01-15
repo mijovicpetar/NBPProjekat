@@ -51,9 +51,7 @@ namespace NBP_Neo4j_Redis.Adapters
             ImageView image1, image2;
             image1 = view.FindViewById<ImageView>(Resource.Id.slikaKorisnika1);
             image2 = view.FindViewById<ImageView>(Resource.Id.slikaKorisnika2);
-
-            image1.Tag =new JavaObject<TLSlika>(slike.Slika1);
-            image2.Tag = new JavaObject<TLSlika>(slike.Slika2);
+            
             
             ViewGroup.LayoutParams param1 = (ViewGroup.LayoutParams)image1.LayoutParameters;
             param1.Height = 360;

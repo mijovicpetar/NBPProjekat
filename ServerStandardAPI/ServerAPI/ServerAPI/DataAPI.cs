@@ -91,7 +91,6 @@ namespace CombinedAPI
                                                 + profil.Ime
                                                 + " "
                                                 + profil.Prezime);
-                                                profil.KorisnickoIme);
                 return true;
             }
             catch (Exception)
@@ -151,7 +150,6 @@ namespace CombinedAPI
                                                    + profil.Ime
                                                    + " "
                                                    + profil.Prezime);
-                                                   profil.KorisnickoIme);
                 return true;
             }
             catch (Exception)
@@ -349,12 +347,16 @@ namespace CombinedAPI
         /// <summary>
         /// Gets all nodes that match auto generated query which is generated from relObj.
         /// Both objects in relObj must have IdentificatorName and IdentificatorValue set.
+        /// If UseInWhereClause is set to true for Relationships Node object it will be used
+        /// in creating query. 
         /// </summary>
-        /// <param name="relObj">Relationship object.</param>
-        /// <returns>List<T> where T is expected return type.</returns>
-        public List<T> GetLeftFromRelation<T>(Relationship relObj)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="relObj"></param>
+        /// <param name="resultNodeSide"></param>
+        /// <returns></returns>
+        public List<T> GetNodesFromRelation<T>(Relationship relObj, ResultNodeSide resultNodeSide)
         {
-            string query = CypherCodeGenerator.Instance.GenerateGetLeftFromRelationCypherQuery(relObj);
+            string query = CypherCodeGenerator.Instance.GenerateGetNodeFromRelationCypherQuery(relObj, resultNodeSide);
 
             try
             {

@@ -164,7 +164,6 @@
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\SignLogInController.cs" />
     <Compile Include="MainApplication.cs" />
-    <Compile Include="NecessaryClasses\JavaObject.cs" />
     <Compile Include="NecessaryClasses\MessageContent.cs" />
     <Compile Include="NecessaryClasses\TwoImages.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

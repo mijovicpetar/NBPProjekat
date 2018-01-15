@@ -52,7 +52,7 @@ namespace NBP_Neo4j_Redis.Activities
             // Create your application here
 
             PoveziKomponente();
-            UcitajPocetnuSliku();
+         //   UcitajPocetnuSliku();
             
         }
 
@@ -237,7 +237,7 @@ namespace NBP_Neo4j_Redis.Activities
 
                 string result = SignLogInController.Instance.RegistrujSe();
 
-                if (result !=null)
+                if (result != null)
                 {
                     var upozorenje = new AlertDialog.Builder(this);
                     upozorenje.SetTitle("Upozorenje!");
@@ -246,7 +246,11 @@ namespace NBP_Neo4j_Redis.Activities
                     upozorenje.Show();
                 }
                 else
-                    StartActivity(typeof(ProfileActivity));
+                {
+                    bool prijavljivanje = SignLogInController.Instance.PrijaviSe();
+                    if(prijavljivanje)
+                        StartActivity(typeof(ProfileActivity));
+                }
             }
         }
 

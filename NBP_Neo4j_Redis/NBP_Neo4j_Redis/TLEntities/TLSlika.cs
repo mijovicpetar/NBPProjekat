@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using CombinedAPI.Entities;
-
+using CombinedAPI;
 namespace NBP_Neo4j_Redis.TLEntities
 {
     public class TLSlika : Slika
@@ -69,6 +69,59 @@ namespace NBP_Neo4j_Redis.TLEntities
             slika.Username = this.Username;
             return slika;
         }
+        public static List<TLSlika> ReturnTagedImages(TLProfil profil)
+        {
+            Profil baseProfil = profil.ReturnBaseProfile();
+            baseProfil.UseInWhereClause = true;
+            List<TLSlika> tagovaneSlike = new List<TLSlika>();
+            Tag tagovane = new Tag(baseProfil, new Slika());
+            List<Slika> result = DataAPI.Instance.GetNodesFromRelation<Slika>(tagovane, CombinedAPI.neo4j.ResultNodeSide.ResultNodeRightSide);
+            result.ForEach(tagSlika =>
+            {
+                tagSlika.UseInWhereClause = true;
+                Tag lokacija = new Tag(tagSlika, new Lokacija());
+                
+                List<Lokacija> resultLocation = DataAPI.Instance.GetNodesFromRelation<Lokacija>(lokacija, CombinedAPI.neo4j.ResultNodeSide.ResultNodeRightSide);
+
+                TLSlika slikaTL = new TLSlika(tagSlika);
+                if(resultLocation!=null && resultLocation.Count>0)
+                    slikaTL.LokacijaSlike = resultLocation[0];               
+                tagovaneSlike.Add(slikaTL);
+            });
+            return tagovaneSlike;
+        }
+        public static TLSlika ReturnProfileImage(TLProfil profil)
+        {
+            Profil baseProfil = profil.ReturnBaseProfile();
+            baseProfil.UseInWhereClause = true;
+
+            Profilna profilna = new Profilna(baseProfil, new Slika());
+            List<Slika> result = DataAPI.Instance.GetNodesFromRelation<Slika>(profilna, CombinedAPI.neo4j.ResultNodeSide.ResultNodeRightSide);
+
+            if(result!=null && result.Count>0)
+                return new TLSlika(result[0]);
+            return null;
+        }
+        public static List<TLSlika> ReturnAddedImages(TLProfil profil)
+        {
+            Profil baseProfile = profil.ReturnBaseProfile();
+            List<TLSlika> addedImages = new List<TLSlika>();
+            List<Slika> mojeSlike = DataAPI.Instance.GetAllPicturesForProfile(baseProfile);
+            if (mojeSlike != null)
+                mojeSlike.ForEach(mojaSlika =>
+                {
+                    mojaSlika.UseInWhereClause = true;
+                    Tag lokacija = new Tag(mojaSlika, new Lokacija());
+                    List<Lokacija> resultLocation = DataAPI.Instance.GetNodesFromRelation<Lokacija>(lokacija, CombinedAPI.neo4j.ResultNodeSide.ResultNodeRightSide);
+                    TLSlika slikaTL = new TLSlika(mojaSlika);
+                    if (resultLocation != null && resultLocation.Count > 0)
+                        slikaTL.LokacijaSlike = resultLocation[0];
+
+                    addedImages.Add(slikaTL);
+                });
+            return addedImages;
+        }
+
         #endregion
     }
 }

@@ -5,6 +5,12 @@ using CombinedAPI.Entities;
 
 namespace CombinedAPI.neo4j
 {
+    public enum ResultNodeSide
+    {
+        ResultNodeLeftSide,
+        ResultNodeRightSide
+    }
+
     public class CypherCodeGenerator
     {
         private static CypherCodeGenerator _instance = new CypherCodeGenerator();
@@ -180,22 +186,43 @@ namespace CombinedAPI.neo4j
 
         /// <summary>
         /// Gets any object that extends Relationship class and generates
-        /// cypher query for geting any left side Node object
-        /// from relation in Neo4j database.
+        /// cypher query for geting any side Node object
+        /// from relation in Neo4j database. Side of the Node is determined by every
+        /// nodes propery UseInWhereClause. Both nodes can be used for query.
         /// </summary>
-        /// <returns>The get left side relation node cypher query.</returns>
-        /// <param name="relObj">Rel object.</param>
-        public string GenerateGetLeftFromRelationCypherQuery(Relationship relObj)
+        /// <param name="relObj"></param>
+        /// <param name="resultNodeSide"></param>
+        /// <returns></returns>
+        public string GenerateGetNodeFromRelationCypherQuery(Relationship relObj, ResultNodeSide resultNodeSide)
         {
             // MATCH (a: Slika) -[r: Tag]->(b: Profil { KorisnickoIme: 'aasd'})
             // RETURN s
 
             StringBuilder builder = new StringBuilder();
-            builder.Append("MATCH(a: " + relObj.FirstObject.GetType().Name + ") ");
+            builder.Append("MATCH(a: " + relObj.FirstObject.GetType().Name);
+
+            if (relObj.FirstObject.UseInWhereClause)
+            {
+                builder.Append(" { " + relObj.FirstObject.IdentificatorName + ": '");
+                builder.Append(relObj.FirstObject.IdentificatorValue + "'}");
+            }
+
+            builder.Append(")");
             builder.Append("-[r: " + relObj.GetType().Name + "]->");
-            builder.Append("(b: " + relObj.SecondObject.GetType().Name + " { ");
-            builder.Append(relObj.SecondObject.IdentificatorName+": '" + relObj.SecondObject.IdentificatorValue + "'})");
-            builder.Append("RETURN a");
+            builder.Append("(b: " + relObj.SecondObject.GetType().Name);
+
+            if (relObj.SecondObject.UseInWhereClause)
+            {
+                builder.Append(" { " + relObj.SecondObject.IdentificatorName + ": '");
+                builder.Append(relObj.SecondObject.IdentificatorValue + "'}");
+            }
+
+            builder.Append(")");
+
+            if (resultNodeSide == ResultNodeSide.ResultNodeLeftSide)
+                builder.Append(" RETURN a");
+            else
+                builder.Append(" RETURN b");
 
             return builder.ToString();
         }
