@@ -14,7 +14,7 @@ using NBP_Neo4j_Redis.Adapters;
 using Android.Graphics;
 using NBP_Neo4j_Redis.NecessaryClasses;
 using CombinedAPI.Entities;
-
+using NBP_Neo4j_Redis.TLEntities;
 namespace NBP_Neo4j_Redis.Activities
 {
     [Activity(Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
@@ -41,10 +41,12 @@ namespace NBP_Neo4j_Redis.Activities
             SetContentView(Resource.Layout.Profile);
 
             PoveziKomponente();
+
             UcitajProfilnePodatke();
-            
-            OsposobiAdapter(DataController.Instance.OdabraniProfil.DodateSlike);
             PrikaziPoljaZaPregled();
+            PrikazKorisnikovogProfila();
+
+            OsposobiAdapter(DataController.Instance.OdabraniProfil.DodateSlike);
         }
         public void PoveziKomponente()
         {
@@ -83,6 +85,7 @@ namespace NBP_Neo4j_Redis.Activities
         private void _imageOk_Click(object sender, EventArgs e)
         {
             PrikaziPoljaZaPregled();
+            //dodati kod za ucitavanje novih vrednosti 
         }
 
         private void _imageEdit_Click(object sender, EventArgs e)
@@ -90,23 +93,8 @@ namespace NBP_Neo4j_Redis.Activities
             PrikaziPoljaZaEditovanje();
         }
 
-        public void UcitajProfilnePodatke()
-        {
-            if (DataController.Instance.OdabraniProfil.Profilna.Sadrzaj != null)
-            {
-                
-                Bitmap bitmap = BitmapConverter.ConvertStringToBitmap(DataController.Instance.OdabraniProfil.Profilna.Sadrzaj);
-                _profilnaSlika.SetImageBitmap(bitmap);
-            }
-            string imePrezime = DataController.Instance.OdabraniProfil.Ime + " " + DataController.Instance.OdabraniProfil.Prezime;
 
-            _textDatumRodjenja.Text = DataController.Instance.OdabraniProfil.DatumRodjenja.ToShortDateString();
-            _textMestoStanovanja.Text = DataController.Instance.OdabraniProfil.MestoStanovanja;
-            _textPol.Text = DataController.Instance.OdabraniProfil.Pol;
-
-        }
-
-        public void OsposobiAdapter(List<Slika> slike)
+        public void OsposobiAdapter(List<TLSlika> slike)
         {
             List<TwoImages> _listOfTwoImages = new List<TwoImages>();
             for (int i = 0; i < slike.Count / 2; i++)
@@ -124,8 +112,7 @@ namespace NBP_Neo4j_Redis.Activities
             }
 
             _listaSlika.Adapter = new UserImagesAdapter(this, _listOfTwoImages);
-        }
-        
+        }        
         public void OsposobiProbniAdapter()
         {
             List<TwoImages> slike = new List<TwoImages>();
@@ -165,8 +152,7 @@ namespace NBP_Neo4j_Redis.Activities
 
             _imageOk.Visibility = ViewStates.Invisible;
             _imageEdit.Visibility = ViewStates.Visible;
-
-           // PrikazKorisnikovogProfila();
+            
         }
 
         public void PrikazKorisnikovogProfila()
@@ -178,8 +164,25 @@ namespace NBP_Neo4j_Redis.Activities
             }
             else
             {
+                _imageEdit.Visibility = ViewStates.Invisible;
                 //skloniti event handler-e sa slike
             }
+        }
+
+        public void UcitajProfilnePodatke()
+        {
+            if (DataController.Instance.OdabraniProfil.Profilna.Sadrzaj != null)
+            {
+
+                Bitmap bitmap = BitmapConverter.ConvertStringToBitmap(DataController.Instance.OdabraniProfil.Profilna.Sadrzaj);
+                _profilnaSlika.SetImageBitmap(bitmap);
+            }
+
+            string imePrezime = DataController.Instance.OdabraniProfil.Ime + " " + DataController.Instance.OdabraniProfil.Prezime;
+            _textImePrezime.Text = imePrezime;
+            _textDatumRodjenja.Text = DataController.Instance.OdabraniProfil.DatumRodjenja.ToShortDateString();
+            _textMestoStanovanja.Text = DataController.Instance.OdabraniProfil.MestoStanovanja;
+            _textPol.Text = DataController.Instance.OdabraniProfil.Pol;
         }
 
     }

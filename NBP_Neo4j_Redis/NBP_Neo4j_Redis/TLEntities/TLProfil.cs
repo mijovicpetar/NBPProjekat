@@ -15,19 +15,19 @@ namespace NBP_Neo4j_Redis.TLEntities
 {
     public class TLProfil : Profil
     {
-        Slika _profilna;
-        List<Slika> _tagovaneSlike;
-        List<Slika> _dodateSlike;
+        TLSlika _profilna;
+        List<TLSlika> _tagovaneSlike;
+        List<TLSlika> _dodateSlike;
         
-        public Slika Profilna { get => _profilna; set => _profilna = value; }
-        public List<Slika> TagovaneSlike { get => _tagovaneSlike; set => _tagovaneSlike = value; }
-        public List<Slika> DodateSlike { get => _dodateSlike; set => _dodateSlike = value; }
+        public TLSlika Profilna { get => _profilna; set => _profilna = value; }
+        public List<TLSlika> TagovaneSlike { get => _tagovaneSlike; set => _tagovaneSlike = value; }
+        public List<TLSlika> DodateSlike { get => _dodateSlike; set => _dodateSlike = value; }
 
         public TLProfil() :base()
         {
-            _profilna = new Slika();
-            _tagovaneSlike = new List<Slika>();
-            _dodateSlike = new List<Slika>();
+            _profilna = new TLSlika();
+            _tagovaneSlike = new List<TLSlika>();
+            _dodateSlike = new List<TLSlika>();
         }
         public Profil ReturnBaseProfile()
         {

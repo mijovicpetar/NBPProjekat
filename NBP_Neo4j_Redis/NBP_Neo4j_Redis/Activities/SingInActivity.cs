@@ -112,7 +112,6 @@ namespace NBP_Neo4j_Redis.Activities
         {
             _profilnaSlika.SetImageBitmap(bitmap);
             string array = BitmapConverter.ConvertBitmapToString(bitmap);
-            SignLogInController.Instance.MojProfil.Profilna = new Slika();
             SignLogInController.Instance.MojProfil.Profilna.Sadrzaj = array;
         }
         public void UcitajPocetnuSliku()

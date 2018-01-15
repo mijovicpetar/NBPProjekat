@@ -16,21 +16,21 @@ namespace NBP_Neo4j_Redis.TLEntities
     public class TLSlika : Slika
     {
         Lokacija _lokacija;
-        Profil _vlasnik;
-        List<Profil> _tagovaneOsobe;
-        List<Profil> _lajkovi;
+        TLProfil _vlasnik;
+        List<TLProfil> _tagovaneOsobe;
+        List<TLProfil> _lajkovi;
 
         public Lokacija LokacijaSlike { get => _lokacija; set => _lokacija = value; }
-        public Profil Vlasnik { get => _vlasnik; set => _vlasnik = value; }
-        public List<Profil> TagovaneOsobe { get => _tagovaneOsobe; set => _tagovaneOsobe = value; }
-        public List<Profil> Lajkovi1 { get => _lajkovi; set => _lajkovi = value; }
+        public TLProfil Vlasnik { get => _vlasnik; set => _vlasnik = value; }
+        public List<TLProfil> TagovaneOsobe { get => _tagovaneOsobe; set => _tagovaneOsobe = value; }
+        public List<TLProfil> Lajkovi1 { get => _lajkovi; set => _lajkovi = value; }
 
         public TLSlika() : base()
         {
             _lokacija = new Lokacija();
-            _vlasnik = new Profil();
-            _tagovaneOsobe = new List<Profil>();
-            _lajkovi = new List<Profil>();
+         //   _vlasnik = new TLProfil();
+         //   _tagovaneOsobe = new List<TLProfil>();
+         //   _lajkovi = new List<TLProfil>();
         }
     }
 }
