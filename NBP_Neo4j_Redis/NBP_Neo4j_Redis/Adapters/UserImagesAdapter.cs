@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using NBP_Neo4j_Redis.NecessaryClasses;
 using NBP_Neo4j_Redis.Activities;
+using NBP_Neo4j_Redis.TLEntities;
 
 namespace NBP_Neo4j_Redis.Adapters
 {
@@ -45,10 +46,13 @@ namespace NBP_Neo4j_Redis.Adapters
             LayoutInflater inflater = (LayoutInflater)profileActivity.BaseContext.GetSystemService(Context.LayoutInflaterService);
             View view = inflater.Inflate(Resource.Layout.Image_item, null);
 
+            TwoImages slike = images[position];
+
             ImageView image1, image2;
             image1 = view.FindViewById<ImageView>(Resource.Id.slikaKorisnika1);
             image2 = view.FindViewById<ImageView>(Resource.Id.slikaKorisnika2);
-
+            
+            
             ViewGroup.LayoutParams param1 = (ViewGroup.LayoutParams)image1.LayoutParameters;
             param1.Height = 360;
             image1.LayoutParameters = param1;
@@ -57,12 +61,23 @@ namespace NBP_Neo4j_Redis.Adapters
             param2.Height = 360;
             image2.LayoutParameters = param2;
 
-
+            image1.Click += Image1_Click;
+            image2.Click += Image2_Click;
             //  image1.SetImageBitmap(BitmapConverter.ConvertByteArrayToBitmap(images[position].Slika1.Sadrzaj));
             // image2.SetImageBitmap(BitmapConverter.ConvertByteArrayToBitmap(images[position].Slika2.Sadrzaj));
 
 
             return view;
+        }
+
+        private void Image2_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Image1_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         //Fill in cound here, currently 0

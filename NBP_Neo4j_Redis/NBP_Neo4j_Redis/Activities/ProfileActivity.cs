@@ -15,6 +15,8 @@ using Android.Graphics;
 using NBP_Neo4j_Redis.NecessaryClasses;
 using CombinedAPI.Entities;
 using NBP_Neo4j_Redis.TLEntities;
+using Android.Provider;
+
 namespace NBP_Neo4j_Redis.Activities
 {
     [Activity(Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
@@ -35,6 +37,14 @@ namespace NBP_Neo4j_Redis.Activities
 
         Button _btnDodateFotografije;
         Button _btnOznaceneFotografije;
+
+        #region readonly
+        // prosledjuje se kao requestCode u slucaju da je slika ucitana iz galerije
+        public static readonly int PickImageId = 1000;
+        //prosledjuje se kao requestCode u slucaju da je slika upravno napravljena
+        public static readonly int PickImageFromCameraId = 1001;
+        #endregion
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -48,10 +58,13 @@ namespace NBP_Neo4j_Redis.Activities
 
             OsposobiAdapter(DataController.Instance.OdabraniProfil.DodateSlike);
         }
+
+
         public void PoveziKomponente()
         {
-
             _profilnaSlika = FindViewById<ImageView>(Resource.Id.PprofilnaSlika);
+            _profilnaSlika.Click += _profilnaSlika_Click;
+
             _textImePrezime = FindViewById<TextView>(Resource.Id.TextViewImePrezime);
             _textDatumRodjenja = FindViewById<TextView>(Resource.Id.TextViewDatumRodjenja);
             _textMestoStanovanja = FindViewById<TextView>(Resource.Id.TextViewMestoStanovanja);
@@ -72,20 +85,30 @@ namespace NBP_Neo4j_Redis.Activities
             _btnDodateFotografije.Click += _btnDodateFotografije_Click;
         }
 
+        private void _profilnaSlika_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void _btnDodateFotografije_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         private void _btnOznaceneFotografije_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+         
         }
 
         private void _imageOk_Click(object sender, EventArgs e)
         {
             PrikaziPoljaZaPregled();
-            //dodati kod za ucitavanje novih vrednosti 
+           // SignLogInController.Instance.MojProfil.DatumRodjenja = _textDatumRodjenja.Text;
+            SignLogInController.Instance.MojProfil.MestoStanovanja = _textMestoStanovanja.Text;
+            SignLogInController.Instance.MojProfil.Pol = _textPol.Text;
+
+            
+            //dodaj kod za modifikovanje cvora u bazi
         }
 
         private void _imageEdit_Click(object sender, EventArgs e)
@@ -135,10 +158,9 @@ namespace NBP_Neo4j_Redis.Activities
             _imageOk.Visibility = ViewStates.Visible;
             _imageEdit.Visibility = ViewStates.Invisible;
 
-            _textDatumRodjenja.Text = DataController.Instance.OdabraniProfil.DatumRodjenja.ToShortDateString();
-            _textMestoStanovanja.Text = DataController.Instance.OdabraniProfil.MestoStanovanja;
-            _textPol.Text = DataController.Instance.OdabraniProfil.Pol;
-
+            _textDatumRodjenja.Text = SignLogInController.Instance.MojProfil.DatumRodjenja.ToShortDateString();
+            _textMestoStanovanja.Text = SignLogInController.Instance.MojProfil.MestoStanovanja;
+            _textPol.Text = SignLogInController.Instance.MojProfil.Pol;
         }
 
         public void PrikaziPoljaZaPregled()
@@ -160,18 +182,16 @@ namespace NBP_Neo4j_Redis.Activities
             if (SignLogInController.Instance.MojProfil.KorisnickoIme == DataController.Instance.OdabraniProfil.KorisnickoIme)
             {
                 _imageEdit.Visibility = ViewStates.Visible;
-                //dodati deo za klik na profilnu
             }
             else
             {
                 _imageEdit.Visibility = ViewStates.Invisible;
-                //skloniti event handler-e sa slike
             }
         }
-
+        
         public void UcitajProfilnePodatke()
         {
-            if (DataController.Instance.OdabraniProfil.Profilna.Sadrzaj != null)
+            if (DataController.Instance.OdabraniProfil.Profilna != null)
             {
 
                 Bitmap bitmap = BitmapConverter.ConvertStringToBitmap(DataController.Instance.OdabraniProfil.Profilna.Sadrzaj);

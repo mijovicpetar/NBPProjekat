@@ -29,6 +29,7 @@ namespace NBP_Neo4j_Redis.TLEntities
             _tagovaneSlike = new List<TLSlika>();
             _dodateSlike = new List<TLSlika>();
         }
+        
         public TLProfil(Profil p)
         {
             this.DatumRodjenja = p.DatumRodjenja;
@@ -46,6 +47,7 @@ namespace NBP_Neo4j_Redis.TLEntities
             _tagovaneSlike = new List<TLSlika>();
             _dodateSlike = new List<TLSlika>();
         }
+        
         public Profil ReturnBaseProfile()
         {
             Profil profil = new Profil();
@@ -59,10 +61,8 @@ namespace NBP_Neo4j_Redis.TLEntities
             profil.IdentificatorName = this.IdentificatorName;
             profil.IdentificatorValue = this.IdentificatorValue;
             profil.UseInWhereClause = this.UseInWhereClause;
-            
+
             return profil;
         }
-
-
     }
 }

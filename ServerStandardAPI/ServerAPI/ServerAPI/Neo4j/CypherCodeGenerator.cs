@@ -5,6 +5,12 @@ using CombinedAPI.Entities;
 
 namespace CombinedAPI.neo4j
 {
+    public enum ResultNodeSide
+    {
+        ResultNodeLeftSide,
+        ResultNodeRightSide
+    }
+
     public class CypherCodeGenerator
     {
         private static CypherCodeGenerator _instance = new CypherCodeGenerator();
@@ -174,6 +180,49 @@ namespace CombinedAPI.neo4j
             builder.Append("' AND b." + relObj.SecondObject.IdentificatorName);
             builder.Append(" = '" + relObj.SecondObject.IdentificatorValue.ToString() + "'");
             builder.Append(" CREATE (a)-[r:" + relObj.GetType().Name + "]->(b)");
+
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// Gets any object that extends Relationship class and generates
+        /// cypher query for geting any side Node object
+        /// from relation in Neo4j database. Side of the Node is determined by every
+        /// nodes propery UseInWhereClause. Both nodes can be used for query.
+        /// </summary>
+        /// <param name="relObj"></param>
+        /// <param name="resultNodeSide"></param>
+        /// <returns></returns>
+        public string GenerateGetNodeFromRelationCypherQuery(Relationship relObj, ResultNodeSide resultNodeSide)
+        {
+            // MATCH (a: Slika) -[r: Tag]->(b: Profil { KorisnickoIme: 'aasd'})
+            // RETURN s
+
+            StringBuilder builder = new StringBuilder();
+            builder.Append("MATCH(a: " + relObj.FirstObject.GetType().Name);
+
+            if (relObj.FirstObject.UseInWhereClause)
+            {
+                builder.Append(" { " + relObj.FirstObject.IdentificatorName + ": '");
+                builder.Append(relObj.FirstObject.IdentificatorValue + "'}");
+            }
+
+            builder.Append(")");
+            builder.Append("-[r: " + relObj.GetType().Name + "]->");
+            builder.Append("(b: " + relObj.SecondObject.GetType().Name);
+
+            if (relObj.SecondObject.UseInWhereClause)
+            {
+                builder.Append(" { " + relObj.SecondObject.IdentificatorName + ": '");
+                builder.Append(relObj.SecondObject.IdentificatorValue + "'}");
+            }
+
+            builder.Append(")");
+
+            if (resultNodeSide == ResultNodeSide.ResultNodeLeftSide)
+                builder.Append(" RETURN a");
+            else
+                builder.Append(" RETURN b");
 
             return builder.ToString();
         }
