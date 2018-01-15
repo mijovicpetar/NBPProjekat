@@ -160,6 +160,7 @@
     <Compile Include="Adapters\ListViewAdapter.cs" />
     <Compile Include="Adapters\UserImagesAdapter.cs" />
     <Compile Include="Adapters\UsersAdapter.cs" />
+    <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="NecessaryClasses\BitmapConverter.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\SignLogInController.cs" />
@@ -250,9 +251,6 @@
     <AndroidResource Include="Resources\drawable\like.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\slikaChat.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\slikaUser.png" />
   </ItemGroup>
   <ItemGroup>
@@ -274,7 +272,10 @@
     <AndroidResource Include="Resources\drawable\DjPM.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ServerStandardAPI\ServerAPI\ServerAPI\ServerAPI.csproj">
+    <AndroidResource Include="Resources\drawable\slikaChat.png" />
+  </ItemGroup>
+  <ItemGroup>
+      <ProjectReference Include="..\..\ServerStandardAPI\ServerAPI\ServerAPI\ServerAPI.csproj">
       <Project>{16315cc3-12bd-4291-8f92-38025bde965c}</Project>
       <Name>ServerAPI</Name>
     </ProjectReference>

@@ -9,6 +9,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using NBP_Neo4j_Redis.Adapters;
+using NBP_Neo4j_Redis.Controllers;
+
 namespace NBP_Neo4j_Redis.Activities
 {
     [Activity(Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
@@ -27,25 +29,39 @@ namespace NBP_Neo4j_Redis.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Users);
+            InitializeAndAssign();
+        }
 
+        private void InitializeAndAssign()
+        {
             listUsers = FindViewById<ListView>(Resource.Id.list_of_profiles);
             myProfile = FindViewById<Button>(Resource.Id.btnMyProfile);
-            
-            OsposobiAdapter();
+            myProfile.Click += MyProfile_Click;
+
+            ViewController.Instance.Context = this;
+            ViewController.Instance.ListaProfila = listUsers;
+            ViewController.Instance.RenderujProfile();
         }
 
-        private void OsposobiAdapter()
+        private void MyProfile_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 10; i++)
-            {
-                string s = "Melanija Krstojevic" + i;
-                users.Add(s);
-            }
-
-
-            listUsers.Adapter = new UsersAdapter(this, users);
-
+            DataController.Instance.OdabraniProfil = SignLogInController.Instance.MojProfil;
+            StartActivity(typeof(ProfileActivity));
         }
+
+
+        //private void OsposobiAdapter()
+        //{
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        string s = "Melanija Krstojevic" + i;
+        //        users.Add(s);
+        //    }
+
+
+        //    listUsers.Adapter = new UsersAdapter(this, users);
+
+        //}
 
 
     }

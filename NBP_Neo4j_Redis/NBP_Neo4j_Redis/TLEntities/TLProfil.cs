@@ -29,26 +29,25 @@ namespace NBP_Neo4j_Redis.TLEntities
             _tagovaneSlike = new List<TLSlika>();
             _dodateSlike = new List<TLSlika>();
         }
-       
-        public TLProfil(Profil profil) :base()
+        
+        public TLProfil(Profil p)
         {
-            this.DatumRodjenja = profil.DatumRodjenja;
-            this.Ime = profil.Ime;
-            this.Prezime = profil.Prezime;
-            this.Pol = profil.Pol;
-            this.MestoStanovanja = profil.MestoStanovanja;
-            this.KorisnickoIme = profil.KorisnickoIme;
-            this.Lozinka = profil.Lozinka;
+            this.DatumRodjenja = p.DatumRodjenja;
+            this.IdentificatorName = p.IdentificatorName;
+            this.IdentificatorValue = p.IdentificatorValue;
+            this.Ime = p.Ime;
+            this.KorisnickoIme = p.KorisnickoIme;
+            this.Lozinka = p.Lozinka;
+            this.MestoStanovanja = p.MestoStanovanja;
+            this.Pol = p.Pol;
+            this.Prezime = p.Prezime;
+            this.UseInWhereClause = p.UseInWhereClause;
 
-            this.IdentificatorName = profil.IdentificatorName;
-            this.IdentificatorValue = profil.IdentificatorValue;
-            this.UseInWhereClause = profil.UseInWhereClause;
             _profilna = new TLSlika();
             _tagovaneSlike = new List<TLSlika>();
             _dodateSlike = new List<TLSlika>();
-            
         }
-
+        
         public Profil ReturnBaseProfile()
         {
             Profil profil = new Profil();

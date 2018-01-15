@@ -21,16 +21,19 @@ namespace NBP_Neo4j_Redis.TLEntities
         List<TLProfil> _tagovaneOsobe;
         List<TLProfil> _lajkovi;
         #endregion
+
         #region Properties
         public Lokacija LokacijaSlike { get => _lokacija; set => _lokacija = value; }
         public TLProfil Vlasnik { get => _vlasnik; set => _vlasnik = value; }
         public List<TLProfil> TagovaneOsobe { get => _tagovaneOsobe; set => _tagovaneOsobe = value; }
         public List<TLProfil> Lajkovi1 { get => _lajkovi; set => _lajkovi = value; }
         #endregion
+
         #region Constructors
         public TLSlika() : base()
         {
             _lokacija = new Lokacija();
+
          //   _vlasnik = new TLProfil();
          //   _tagovaneOsobe = new List<TLProfil>();
          //   _lajkovi = new List<TLProfil>();

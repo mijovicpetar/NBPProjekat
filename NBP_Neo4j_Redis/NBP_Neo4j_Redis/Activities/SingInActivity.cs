@@ -249,7 +249,7 @@ namespace NBP_Neo4j_Redis.Activities
                 {
                     bool prijavljivanje = SignLogInController.Instance.PrijaviSe();
                     if(prijavljivanje)
-                        StartActivity(typeof(ProfileActivity));
+                        StartActivity(typeof(UsersActitity));
                 }
             }
         }
