@@ -17,7 +17,7 @@
         app:layout_widthPercent="100%"
         app:layout_heightPercent="100%"
         app:layout_marginTopPercent="0%"
-        android:src="@drawable/Mladen"
+        android:src="@drawable/user"
         android:id="@+id/PprofilnaSlika"
         android:layout_centerInParent="true" />
   </android.support.percent.PercentRelativeLayout>

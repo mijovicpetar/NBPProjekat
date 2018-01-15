@@ -29,6 +29,26 @@ namespace NBP_Neo4j_Redis.TLEntities
             _tagovaneSlike = new List<TLSlika>();
             _dodateSlike = new List<TLSlika>();
         }
+       
+        public TLProfil(Profil profil) :base()
+        {
+            this.DatumRodjenja = profil.DatumRodjenja;
+            this.Ime = profil.Ime;
+            this.Prezime = profil.Prezime;
+            this.Pol = profil.Pol;
+            this.MestoStanovanja = profil.MestoStanovanja;
+            this.KorisnickoIme = profil.KorisnickoIme;
+            this.Lozinka = profil.Lozinka;
+
+            this.IdentificatorName = profil.IdentificatorName;
+            this.IdentificatorValue = profil.IdentificatorValue;
+            this.UseInWhereClause = profil.UseInWhereClause;
+            _profilna = new TLSlika();
+            _tagovaneSlike = new List<TLSlika>();
+            _dodateSlike = new List<TLSlika>();
+            
+        }
+
         public Profil ReturnBaseProfile()
         {
             Profil profil = new Profil();
@@ -42,10 +62,8 @@ namespace NBP_Neo4j_Redis.TLEntities
             profil.IdentificatorName = this.IdentificatorName;
             profil.IdentificatorValue = this.IdentificatorValue;
             profil.UseInWhereClause = this.UseInWhereClause;
-            
+
             return profil;
         }
-
-
     }
 }

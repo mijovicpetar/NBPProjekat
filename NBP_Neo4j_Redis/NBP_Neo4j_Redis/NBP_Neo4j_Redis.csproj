@@ -91,9 +91,6 @@
     <Reference Include="Refractored.Fab, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Refractored.FloatingActionButton.2.1.0\lib\MonoAndroid10\Refractored.Fab.dll</HintPath>
     </Reference>
-    <Reference Include="ServerAPI">
-      <HintPath>..\..\API\ServerAPI.dll</HintPath>
-    </Reference>
     <Reference Include="ServiceStack.Common, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.Common.5.0.2\lib\netstandard2.0\ServiceStack.Common.dll</HintPath>
     </Reference>
@@ -167,6 +164,7 @@
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\SignLogInController.cs" />
     <Compile Include="MainApplication.cs" />
+    <Compile Include="NecessaryClasses\JavaObject.cs" />
     <Compile Include="NecessaryClasses\MessageContent.cs" />
     <Compile Include="NecessaryClasses\TwoImages.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -275,6 +273,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\DjPM.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ServerStandardAPI\ServerAPI\ServerAPI\ServerAPI.csproj">
+      <Project>{16315cc3-12bd-4291-8f92-38025bde965c}</Project>
+      <Name>ServerAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
