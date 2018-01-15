@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -10,16 +9,17 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using NBP_Neo4j_Redis.Activities;
+using NBP_Neo4j_Redis.Controllers;
+
 namespace NBP_Neo4j_Redis.Adapters
 {
     class UsersAdapter : BaseAdapter
     {
-
         private List<string> users;
-        private UsersActitity usersActivity;
+        private Activity usersActivity;
         private LayoutInflater inflater;
 
-        public UsersAdapter(UsersActitity Uactivity, List<string> users) : base()
+        public UsersAdapter(Activity Uactivity, List<string> users) : base()
         {
             this.users = users;
             this.usersActivity = Uactivity;
@@ -29,7 +29,7 @@ namespace NBP_Neo4j_Redis.Adapters
 
         public override Java.Lang.Object GetItem(int position)
         {
-            return position;
+            return users[position];
         }
 
         public override long GetItemId(int position)
@@ -50,12 +50,33 @@ namespace NBP_Neo4j_Redis.Adapters
             TextView user = itemView.FindViewById<TextView>(Resource.Id.user);
             ImageView imageChat = itemView.FindViewById<ImageView>(Resource.Id.slikaChat);
             ImageView imageUser = itemView.FindViewById<ImageView>(Resource.Id.slikaUser);
+            //try { imageChat.Click -= ImageChat_Click; }
+            //finally { imageChat.Click += ImageChat_Click; }
+            try { imageUser.Click -= ImageUser_Click; }
+            finally { imageUser.Click += ImageUser_Click; }
 
             user.Text = users[position];
             
             return itemView;
         }
 
+        private void ImageChat_Click(object sender, EventArgs e)
+        {
+            
+        }
+        private void ImageUser_Click(object sender, EventArgs e)
+        {
+
+            string[] podaci = ((sender as ImageView).Parent as View).FindViewById<TextView>(Resource.Id.user).Text.Split(' ');
+            DataController.Instance.KorisnickoOdabranogProfila = podaci[0];
+            int index_odabranog_profila;
+
+            DataController.Instance.OdabraniProfil = DataController.Instance.VratiOdabraniProfil();
+            string profil = DataController.Instance.PronadjiProfilLokalno(DataController.Instance.OdabraniProfil.KorisnickoIme, out index_odabranog_profila);
+            DataController.Instance.IndexOdabranogProfila = index_odabranog_profila;
+
+            usersActivity.StartActivity(typeof(ProfileActivity));
+        }
         //Fill in cound here, currently 0
         public override int Count
         {
@@ -64,7 +85,6 @@ namespace NBP_Neo4j_Redis.Adapters
                 return users.Count;
             }
         }
-
     }
 
     class UsersAdapterViewHolder : Java.Lang.Object

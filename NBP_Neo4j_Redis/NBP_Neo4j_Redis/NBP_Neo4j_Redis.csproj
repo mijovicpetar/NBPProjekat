@@ -163,6 +163,7 @@
     <Compile Include="Adapters\ListViewAdapter.cs" />
     <Compile Include="Adapters\UserImagesAdapter.cs" />
     <Compile Include="Adapters\UsersAdapter.cs" />
+    <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="NecessaryClasses\BitmapConverter.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\SignLogInController.cs" />
@@ -253,9 +254,6 @@
     <AndroidResource Include="Resources\drawable\like.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\slikaChat.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\slikaUser.png" />
   </ItemGroup>
   <ItemGroup>
@@ -275,6 +273,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\DjPM.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\slikaChat.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

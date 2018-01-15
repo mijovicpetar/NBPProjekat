@@ -246,7 +246,7 @@ namespace NBP_Neo4j_Redis.Activities
                     upozorenje.Show();
                 }
                 else
-                    StartActivity(typeof(ProfileActivity));
+                    StartActivity(typeof(UsersActitity));
             }
         }
 
