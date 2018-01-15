@@ -10,7 +10,7 @@ namespace CombinedAPI
     /// Registration outcome.
     /// </summary>
     public enum RegistrationOutcome
-    {  
+    {
         SUCCESS,
         USERNAME_IN_USE,
         FALIURE
@@ -86,7 +86,11 @@ namespace CombinedAPI
             try
             {
                 RedisManager.Instance.SSetValue(RedisSets.active_users.ToString(),
-                                                profil.KorisnickoIme);
+                                                profil.KorisnickoIme 
+                                                + " " 
+                                                + profil.Ime
+                                                + " "
+                                                + profil.Prezime);
                 return true;
             }
             catch (Exception)
@@ -125,7 +129,7 @@ namespace CombinedAPI
                     return null;
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return null;
             }
@@ -141,7 +145,11 @@ namespace CombinedAPI
             try
             {
                 RedisManager.Instance.SRemoveValue(RedisSets.active_users.ToString(),
-                                                   profil.KorisnickoIme);
+                                                   profil.KorisnickoIme 
+                                                   + " " 
+                                                   + profil.Ime
+                                                   + " "
+                                                   + profil.Prezime);
                 return true;
             }
             catch (Exception)
@@ -170,7 +178,7 @@ namespace CombinedAPI
         /// Gets all active users usernames.
         /// </summary>
         /// <returns>The all active users usernames.</returns>
-        public List<string> GetAllActiveUsersUsernames()
+        public List<string> GetAllActiveUserDetails()
         {
             try
             {
@@ -196,7 +204,7 @@ namespace CombinedAPI
                 string query = CypherCodeGenerator.Instance.GenerateGetNodeQuery(tObject);
                 return Neo4jManager.Instance.ExecuteMatchQuery<T>(query);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return null;
             }
@@ -215,7 +223,45 @@ namespace CombinedAPI
 
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+    
+        /// <summary>
+        /// Edits the entity. Entity can be of type Slika, Profil etc.
+        /// </summary>
+        /// <returns><c>true</c>, if entity was edited, <c>false</c> otherwise.</returns>
+        /// <param name="tObject">T object.</param>
+        public bool EditEntity(Node tObject)
+        {
+            try
+            {
+                Neo4jManager.Instance.EditNode(tObject);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Deletes the entity. Entity can be of type Slika, Profil etc.
+        /// </summary>
+        /// <returns><c>true</c>, if entity was deleted, <c>false</c> otherwise.</returns>
+        /// <param name="tObject">T object.</param>
+        public bool DeleteEntity(Node tObject)
+        {
+            try
+            {
+                Neo4jManager.Instance.DeleteNode(tObject);
+
+                return true;
+            }
+            catch (Exception)
             {
                 return false;
             }
@@ -234,7 +280,26 @@ namespace CombinedAPI
 
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Deletes the relationship. Relationships can be of type Lajk, Tag etc.
+        /// </summary>
+        /// <returns><c>true</c>, if relationship was deleted, <c>false</c> otherwise.</returns>
+        /// <param name="tObject">T object.</param>
+        public bool DeleteRelationship(Relationship tObject)
+        {
+            try
+            {
+                Neo4jManager.Instance.DeleteRelationship(tObject);
+
+                return true;
+            }
+            catch (Exception)
             {
                 return false;
             }
@@ -272,6 +337,27 @@ namespace CombinedAPI
             try
             {
                 return Neo4jManager.Instance.ExecuteMatchQuery<Profil>(query);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets all nodes that match auto generated query which is generated from relObj.
+        /// Both objects in relObj must have IdentificatorName and IdentificatorValue set.
+        /// </summary>
+        /// <param name="relObj">Relationship object.</param>
+        /// <returns>List<T> where T is expected return type.</returns>
+        public List<T> GetLeftFromRelation<T>(Relationship relObj)
+        {
+            string query = CypherCodeGenerator.Instance.GenerateGetLeftFromRelationCypherQuery(relObj);
+
+            try
+            {
+                Type type = relObj.FirstObject.GetType();
+                return Neo4jManager.Instance.ExecuteMatchQuery<T>(query);
             }
             catch (Exception)
             {

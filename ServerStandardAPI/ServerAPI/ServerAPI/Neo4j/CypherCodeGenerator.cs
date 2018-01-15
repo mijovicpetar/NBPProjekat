@@ -179,6 +179,28 @@ namespace CombinedAPI.neo4j
         }
 
         /// <summary>
+        /// Gets any object that extends Relationship class and generates
+        /// cypher query for geting any left side Node object
+        /// from relation in Neo4j database.
+        /// </summary>
+        /// <returns>The get left side relation node cypher query.</returns>
+        /// <param name="relObj">Rel object.</param>
+        public string GenerateGetLeftFromRelationCypherQuery(Relationship relObj)
+        {
+            // MATCH (a: Slika) -[r: Tag]->(b: Profil { KorisnickoIme: 'aasd'})
+            // RETURN s
+
+            StringBuilder builder = new StringBuilder();
+            builder.Append("MATCH(a: " + relObj.FirstObject.GetType().Name + ") ");
+            builder.Append("-[r: " + relObj.GetType().Name + "]->");
+            builder.Append("(b: " + relObj.SecondObject.GetType().Name + " { ");
+            builder.Append(relObj.SecondObject.IdentificatorName+": '" + relObj.SecondObject.IdentificatorValue + "'})");
+            builder.Append("RETURN a");
+
+            return builder.ToString();
+        }
+
+        /// <summary>
         /// Generates the match cypher query from list of Nodes.
         /// It use every node for the path and those who have true
         /// for UseInWhereClause for where clause.
