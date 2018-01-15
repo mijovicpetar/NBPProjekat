@@ -10,7 +10,7 @@ namespace CombinedAPI
     /// Registration outcome.
     /// </summary>
     public enum RegistrationOutcome
-    {
+    {  
         SUCCESS,
         USERNAME_IN_USE,
         FALIURE
@@ -91,6 +91,7 @@ namespace CombinedAPI
                                                 + profil.Ime
                                                 + " "
                                                 + profil.Prezime);
+                                                profil.KorisnickoIme);
                 return true;
             }
             catch (Exception)
@@ -150,6 +151,7 @@ namespace CombinedAPI
                                                    + profil.Ime
                                                    + " "
                                                    + profil.Prezime);
+                                                   profil.KorisnickoIme);
                 return true;
             }
             catch (Exception)
@@ -299,7 +301,7 @@ namespace CombinedAPI
 
                 return true;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return false;
             }
@@ -365,7 +367,6 @@ namespace CombinedAPI
             }
         }
 
-        /// <summary>
         /// Deletes the evrything from both Redis and Neo4j database. Carefull!
         /// </summary>
         public void DeleteEvrything()

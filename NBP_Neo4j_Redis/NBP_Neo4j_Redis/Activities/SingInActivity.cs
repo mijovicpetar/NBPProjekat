@@ -22,7 +22,7 @@ using CombinedAPI.Entities;
 using CombinedAPI;
 namespace NBP_Neo4j_Redis.Activities
 {
-    [Activity(MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
+    [Activity(Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class SingInActivity : Activity
     {
         #region Komponente
@@ -112,7 +112,7 @@ namespace NBP_Neo4j_Redis.Activities
         {
             _profilnaSlika.SetImageBitmap(bitmap);
             string array = BitmapConverter.ConvertBitmapToString(bitmap);
-            SignLogInController.Instance.MojProfil.Profilna.Sadrzaj = array;
+            SignLogInController.Instance.MojProfil.Profilna.Sadrzaj = array;            
         }
         public void UcitajPocetnuSliku()
         {
