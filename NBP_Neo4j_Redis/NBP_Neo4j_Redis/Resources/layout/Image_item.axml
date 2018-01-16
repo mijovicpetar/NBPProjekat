@@ -7,7 +7,6 @@
     <ImageView
     android:layout_height="wrap_content"
     app:layout_widthPercent ="50%"
-      android:src="@drawable/Mladen"
       android:id="@+id/slikaKorisnika1"/>
   <TextView
     android:layout_width="wrap_content"
@@ -20,7 +19,6 @@
     android:layout_height="wrap_content"
     app:layout_widthPercent ="50%"
     android:layout_toRightOf="@+id/slikaKorisnika1"
-    android:src="@drawable/DjPM"
     android:id="@+id/slikaKorisnika2"/>
 
   <TextView

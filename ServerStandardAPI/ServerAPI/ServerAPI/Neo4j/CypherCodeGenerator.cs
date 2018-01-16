@@ -46,7 +46,7 @@ namespace CombinedAPI.neo4j
 
             foreach (var property in properties)
             {
-                if (ValidAtribute((property.Name)))
+                if (ValidAtribute(property.Name, false))
                 {
                     var value = property.GetValue(tObject);
                     string cypherProperty = property.Name + ": '" + value.ToString() + "', ";
@@ -84,7 +84,7 @@ namespace CombinedAPI.neo4j
         public string GenerateEditNodeCypherQuery(object tObject)
         {
             StringBuilder builder = new StringBuilder();
-            builder.Append("MATCH(n: { ");
+            builder.Append("MERGE(n:" + tObject.GetType().Name + " { ");
 
             Type type = tObject.GetType();
             var properties = type.GetProperties();
@@ -98,7 +98,8 @@ namespace CombinedAPI.neo4j
 
             foreach (var property in properties)
             {
-                if (ValidAtribute(property.Name))
+                bool imageOnEdit = tObject.GetType().Name == "Slika" ? true : false;
+                if (ValidAtribute(property.Name, imageOnEdit))
                 {
                     var value = property.GetValue(tObject);
                     string cypherProperty = "n." + property.Name + " = '" + value.ToString() + "', ";
@@ -107,7 +108,6 @@ namespace CombinedAPI.neo4j
             }
 
             builder = new StringBuilder(builder.ToString().TrimEnd().TrimEnd(','));
-            builder.Append("})");
 
             return builder.ToString();
         }
@@ -280,8 +280,10 @@ namespace CombinedAPI.neo4j
         /// </summary>
         /// <returns><c>true</c>, if atribute was valided, <c>false</c> otherwise.</returns>
         /// <param name="atrName">Atr name.</param>
-        private bool ValidAtribute(string atrName)
+        private bool ValidAtribute(string atrName, bool imageOnEdit)
         {
+            if (imageOnEdit && atrName == "Sadrzaj")
+                return false;
             if (atrName != "IdentificatorName"
                 && atrName != "IdentificatorValue"
                 && atrName != "UseInWhereClause")

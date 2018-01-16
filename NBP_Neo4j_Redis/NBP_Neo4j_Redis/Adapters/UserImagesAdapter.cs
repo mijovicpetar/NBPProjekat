@@ -84,12 +84,20 @@ namespace NBP_Neo4j_Redis.Adapters
         private void Image2_Click(object sender, EventArgs e)
         {
             string kljuc2 = ((sender as ImageView).Parent as View).FindViewById<TextView>(Resource.Id.KljucSlike2).Text;
-            DataController.Instance.NadjiOdabranuSliku(kljuc2);
+            if (kljuc2 != "")
+            {
+                DataController.Instance.NadjiOdabranuSliku(kljuc2);
+                profileActivity.StartActivity(typeof(ImageActivity));
+            }
         }
         private void Image1_Click(object sender, EventArgs e)
         {
             string kljuc1 = ((sender as ImageView).Parent as View).FindViewById<TextView>(Resource.Id.KljucSlike1).Text;
-            DataController.Instance.NadjiOdabranuSliku(kljuc1);            
+            if (kljuc1 != "")
+            {
+                DataController.Instance.NadjiOdabranuSliku(kljuc1);
+                profileActivity.StartActivity(typeof(ImageActivity));
+            }
         }
         #endregion
 

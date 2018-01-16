@@ -96,17 +96,34 @@ namespace NBP_Neo4j_Redis.Controllers
                 this._indexOdabranogProfila = value;
             }
         }
+
+        int _indexOdabranogProfilaLajk;
+        public int IndexOdabranogProfilaLajk
+        {
+            get
+            {
+                this.PronadjiProfilLokalno1(OdabraniProfil.KorisnickoIme, out _indexOdabranogProfila);
+                return _indexOdabranogProfilaLajk;
+            }
+            set
+            {
+                this._indexOdabranogProfilaLajk = value;
+            }
+        }
+
         public string KorisnickoOdabranogProfila
         {
             get; set;
         }
         #endregion
 
+
         #region Constructor
         private DataController()
         {
             OdabraniProfil = new TLProfil();
             _profili = new List<string>();
+            _profili_lajkovi = new List<string>();
         }
         #endregion
 
@@ -114,6 +131,7 @@ namespace NBP_Neo4j_Redis.Controllers
         public List<string> PreuzmiAktivneProfile()
         {
             List<string> lista = DataAPI.Instance.GetAllActiveUserDetails();
+          
             for (int i = 0; i < lista.Count; i++)
             {
                 string[] ss = lista[i].Split(' ');
@@ -190,6 +208,7 @@ namespace NBP_Neo4j_Redis.Controllers
                 if (odabranaSlika.Kljuc == kljuc)
                 {
                     _odabranaSlika = odabranaSlika;
+                    _profili_lajkovi.Clear();
                 }
             }
         }
@@ -212,6 +231,50 @@ namespace NBP_Neo4j_Redis.Controllers
 
             return uspesnoDodavanje;
         }
-        #endregion
+        
+
+        public bool IzmeniOdabranuSliku()
+        {
+            OdabranaSlika.IdentificatorName = "Kljuc";
+            OdabranaSlika.IdentificatorValue = OdabranaSlika.Kljuc;
+            return DataAPI.Instance.EditEntity(OdabranaSlika.ReturnBaseImage());
+        }
+
+        public void ObrisiOdabranuSliku()
+        {
+            bool uspesno = DataAPI.Instance.DeleteEntity(OdabranaSlika);
+            OdabraniProfil.DodateSlike.Remove(OdabranaSlika);
+            OdabranaSlika = null;
+            
+        }
+
+        private void IzmeniLokaciju()
+        {
+            Lokacija lokacija = OdabranaSlika.LokacijaSlike;
+            lokacija.Drzava = "";
+            lokacija.Grad = "";
+            lokacija.IdentificatorName = "Naziv";
+            lokacija.IdentificatorValue = lokacija.Naziv;
+            lokacija.KoordinataX = 0;
+            lokacija.KoordinataX = 0;
+            lokacija.UseInWhereClause = true;
+
+
+            DataAPI.Instance.CreateLocationIfNeeded(lokacija);
+            LokacijaSlike lokacijaSlike = new LokacijaSlike(OdabranaSlika.ReturnBaseImage(), lokacija);
+            DataAPI.Instance.CreateRelationship(lokacijaSlike);
+        }
+
+        public void NapraviLajk()
+        {
+            OdabranaSlika.IdentificatorName = "Kljuc";
+            OdabranaSlika.IdentificatorValue = OdabranaSlika.Kljuc;
+            SignLogInController.Instance.MojProfil.IdentificatorName = "KorisnickoIme";
+            SignLogInController.Instance.MojProfil.IdentificatorValue = SignLogInController.Instance.MojProfil.KorisnickoIme;
+            Lajk lajk = new Lajk(SignLogInController.Instance.MojProfil.ReturnBaseProfile(), OdabranaSlika.ReturnBaseImage());
+            bool uspesno = DataAPI.Instance.CreateRelationship(lajk);
+
+        }
+      #endregion
     }
 }

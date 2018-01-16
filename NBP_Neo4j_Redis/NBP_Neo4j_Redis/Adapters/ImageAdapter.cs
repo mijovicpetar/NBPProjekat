@@ -10,18 +10,20 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using NBP_Neo4j_Redis.Activities;
+using NBP_Neo4j_Redis.Controllers;
+
 namespace NBP_Neo4j_Redis.Adapters
 {
     class ImageAdapter : BaseAdapter
     {
         #region Atributes
         private List<string> users;
-        private ImageActivity usersActivity;
+        private Activity usersActivity;
         private LayoutInflater inflater;
         #endregion
 
         #region Constructors
-        public ImageAdapter(ImageActivity Uactivity, List<string> users) : base()
+        public ImageAdapter(Activity Uactivity, List<string> users) : base()
         {
             this.users = users;
             this.usersActivity = Uactivity;
@@ -32,7 +34,7 @@ namespace NBP_Neo4j_Redis.Adapters
         #region Overrides
         public override Java.Lang.Object GetItem(int position)
         {
-            return position;
+            return users[position];
         }
         public override long GetItemId(int position)
         {
@@ -51,10 +53,25 @@ namespace NBP_Neo4j_Redis.Adapters
             TextView user = itemView.FindViewById<TextView>(Resource.Id.user);
             ImageView imageChat = itemView.FindViewById<ImageView>(Resource.Id.slikaChat);
             ImageView imageUser = itemView.FindViewById<ImageView>(Resource.Id.slikaUser);
+            try { imageUser.Click -= ImageUser_Click; }
+            finally { imageUser.Click += ImageUser_Click; }
 
             user.Text = users[position];
             
             return itemView;
+        }
+        private void ImageUser_Click(object sender, EventArgs e)
+        {
+
+            string[] podaci = ((sender as ImageView).Parent as View).FindViewById<TextView>(Resource.Id.user).Text.Split(' ');
+            DataController.Instance.KorisnickoOdabranogProfila = podaci[0];
+            int index_odabranog_profila;
+
+            DataController.Instance.OdabraniProfil = DataController.Instance.VratiOdabraniProfil();
+            string profil = DataController.Instance.PronadjiProfilLokalno1(DataController.Instance.OdabraniProfil.KorisnickoIme, out index_odabranog_profila);
+            DataController.Instance.IndexOdabranogProfilaLajk = index_odabranog_profila;
+
+            usersActivity.StartActivity(typeof(ProfileActivity));
         }
         public override int Count
         {

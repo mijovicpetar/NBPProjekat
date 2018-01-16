@@ -103,7 +103,38 @@ namespace NBP_Neo4j_Redis.Activities
         {
             DataController.Instance.DodajNovuSliku(bitmap);
             OsposobiAdapter(SignLogInController.Instance.MojProfil.DodateSlike);
-        }       
+        }   
+            DataController.Instance.OdabranaSlika = DataController.Instance.OdabraniProfil.Profilna;
+            StartActivity(typeof(ImageActivity));
+        }
+
+        private void _btnDodateFotografije_Click(object sender, EventArgs e)
+        {
+            OsposobiAdapter(DataController.Instance.OdabraniProfil.DodateSlike);
+            DataController.Instance.TypeOfSelectedImages = TypeOfImages.AddedImages;
+        }
+
+        private void _btnOznaceneFotografije_Click(object sender, EventArgs e)
+        {
+            OsposobiAdapter(DataController.Instance.OdabraniProfil.TagovaneSlike);
+            DataController.Instance.TypeOfSelectedImages = TypeOfImages.TagedImages;
+        }
+
+        private void _imageOk_Click(object sender, EventArgs e)
+        {
+            PrikaziPoljaZaPregled();
+           // SignLogInController.Instance.MojProfil.DatumRodjenja = _textDatumRodjenja.Text;
+            SignLogInController.Instance.MojProfil.MestoStanovanja = _textMestoStanovanja.Text;
+            SignLogInController.Instance.MojProfil.Pol = _textPol.Text;
+            
+            SignLogInController.Instance.IzmeniProfil();
+        }
+
+        private void _imageEdit_Click(object sender, EventArgs e)
+        {
+            PrikaziPoljaZaEditovanje();
+        }
+
         public void OsposobiAdapter(List<TLSlika> slike)
         {
             List<TwoImages> _listOfTwoImages = new List<TwoImages>();
@@ -177,7 +208,7 @@ namespace NBP_Neo4j_Redis.Activities
         }        
         public void UcitajProfilnePodatke()
         {
-            if (DataController.Instance.OdabraniProfil.Profilna != null && DataController.Instance.OdabraniProfil.Profilna.Sadrzaj!=null)
+            if (DataController.Instance.OdabraniProfil.Profilna != null && DataController.Instance.OdabraniProfil.Profilna.Sadrzaj != null)
             {
 
                 Bitmap bitmap = BitmapConverter.ConvertStringToBitmap(DataController.Instance.OdabraniProfil.Profilna.Sadrzaj);

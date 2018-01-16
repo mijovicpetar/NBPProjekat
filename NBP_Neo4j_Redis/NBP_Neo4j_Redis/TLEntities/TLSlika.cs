@@ -51,7 +51,7 @@ namespace NBP_Neo4j_Redis.TLEntities
 
         }
         #endregion
-     
+
         #region Methodes
         public static List<TLSlika> GetTLImages(List<Slika> slike)
         {

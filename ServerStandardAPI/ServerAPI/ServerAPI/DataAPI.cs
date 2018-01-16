@@ -23,7 +23,8 @@ namespace CombinedAPI
     public enum RedisSets
     {
         users,
-        active_users
+        active_users,
+        locations
     }
     #endregion
 
@@ -193,6 +194,34 @@ namespace CombinedAPI
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Create new location Node if one don't already exists.
+        /// </summary>
+        /// <param name="lokacija">Location object.</param>
+        /// <returns>Function returns true if the execution was without exceptions.
+        /// Otherwise false.
+        /// </returns>
+        public bool CreateLocationIfNeeded(Lokacija lokacija)
+        {
+            try
+            {
+                bool exists = RedisManager.Instance.SSetIsInSet(RedisSets.locations.ToString(),
+                    lokacija.Naziv);
+                if(!exists)
+                {
+                    RedisManager.Instance.SSetIsInSet(RedisSets.locations.ToString(),
+                        lokacija.Naziv);
+                    Neo4jManager.Instance.GenerateNewNode(lokacija);
+                }
+
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
             }
         }
 

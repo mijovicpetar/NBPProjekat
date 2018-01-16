@@ -57,7 +57,7 @@ namespace NBP_Neo4j_Redis.Activities
             bool uspesnoPrijavljivanje = SignLogInController.Instance.PrijaviSe(korisnickoIme, lozinka);
 
             if (uspesnoPrijavljivanje)
-                StartActivity(typeof(ProfileActivity));
+                StartActivity(typeof(UsersActitity));
             else
             {
                 var upozorenje = new AlertDialog.Builder(this);

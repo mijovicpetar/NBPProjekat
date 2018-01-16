@@ -55,6 +55,5 @@ namespace NBP_Neo4j_Redis.Activities
             StartActivity(typeof(ProfileActivity));
         }
         #endregion
-        
     }
 }
