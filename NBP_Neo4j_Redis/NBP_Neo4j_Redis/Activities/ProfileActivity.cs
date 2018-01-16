@@ -86,7 +86,8 @@ namespace NBP_Neo4j_Redis.Activities
 
         private void _profilnaSlika_Click(object sender, EventArgs e)
         {
-
+            DataController.Instance.OdabranaSlika = DataController.Instance.OdabraniProfil.Profilna;
+            StartActivity(typeof(ImageActivity));
         }
 
         private void _btnDodateFotografije_Click(object sender, EventArgs e)

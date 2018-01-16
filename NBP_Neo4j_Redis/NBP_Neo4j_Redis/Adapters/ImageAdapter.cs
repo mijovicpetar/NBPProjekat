@@ -67,7 +67,7 @@ namespace NBP_Neo4j_Redis.Adapters
 
             DataController.Instance.OdabraniProfil = DataController.Instance.VratiOdabraniProfil();
             string profil = DataController.Instance.PronadjiProfilLokalno1(DataController.Instance.OdabraniProfil.KorisnickoIme, out index_odabranog_profila);
-            DataController.Instance.IndexOdabranogProfila = index_odabranog_profila;
+            DataController.Instance.IndexOdabranogProfilaLajk = index_odabranog_profila;
 
             usersActivity.StartActivity(typeof(ProfileActivity));
         }

@@ -11,6 +11,8 @@ using Android.Views;
 using Android.Widget;
 using NBP_Neo4j_Redis.Adapters;
 using NBP_Neo4j_Redis.Controllers;
+using CombinedAPI.Entities;
+using CombinedAPI;
 
 namespace NBP_Neo4j_Redis.Activities
 {
@@ -52,9 +54,46 @@ namespace NBP_Neo4j_Redis.Activities
             delete = FindViewById<ImageView>(Resource.Id.imageDelete);
             ok = FindViewById<ImageView>(Resource.Id.imageOk);
 
+            try { edit_slike.Click -= Edit_slike_Click; }
+            finally { edit_slike.Click += Edit_slike_Click; }
+            try { delete.Click -= Delete_Click; }
+            finally { delete.Click += Delete_Click; }
+            try { ok.Click -= Ok_Click; }
+            finally { ok.Click += Ok_Click; }
+            try { lajk.Click -= Lajk_Click; }
+            finally { lajk.Click += Lajk_Click; }
+
             PrikaziPodatke();
 
             PrikaziPoljaZaPregled();
+        }
+
+        private void Lajk_Click(object sender, EventArgs e)
+        {
+            DataController.Instance.NapraviLajk();
+            StartActivity(typeof(ImageActivity));
+        }
+
+        private void Ok_Click(object sender, EventArgs e)
+        {
+            DataController.Instance.OdabranaSlika.Opis = edit_opis_slike.Text;
+
+            string lokacija = edit_lokacija.Text;
+            DataController.Instance.OdabranaSlika.LokacijaSlike = new Lokacija();
+            DataController.Instance.OdabranaSlika.LokacijaSlike.Naziv = lokacija;
+            if (DataController.Instance.IzmeniOdabranuSliku())
+                StartActivity(typeof(ImageActivity));
+        }
+
+        private void Delete_Click(object sender, EventArgs e)
+        {
+            DataController.Instance.ObrisiOdabranuSliku();
+            StartActivity(typeof(ProfileActivity));
+        }
+
+        private void Edit_slike_Click(object sender, EventArgs e)
+        {
+            PrikaziPoljaZaEditovanje();
         }
 
         private void PrikaziPodatke()
@@ -75,26 +114,51 @@ namespace NBP_Neo4j_Redis.Activities
 
         public void PrikaziPoljaZaEditovanje()
         {
-            opis.Visibility = ViewStates.Invisible;
-            lokacija.Visibility = ViewStates.Invisible;
+            if (DataController.Instance.OdabranaSlika.Username == SignLogInController.Instance.MojProfil.KorisnickoIme)
+            {
+                opis.Visibility = ViewStates.Invisible;
+                lokacija.Visibility = ViewStates.Invisible;
 
-            edit_lokacija.Visibility = ViewStates.Visible;
-            edit_opis_slike.Visibility = ViewStates.Visible;
+                edit_lokacija.Visibility = ViewStates.Visible;
+                edit_opis_slike.Visibility = ViewStates.Visible;
 
-            ok.Visibility = ViewStates.Visible;
-            edit_slike.Visibility = ViewStates.Invisible;
+                ok.Visibility = ViewStates.Visible;
+                edit_slike.Visibility = ViewStates.Invisible;
+
+                delete.Visibility = ViewStates.Visible;
+            }
         }
 
         public void PrikaziPoljaZaPregled()
         {
-            opis.Visibility = ViewStates.Visible;
-            lokacija.Visibility = ViewStates.Visible;
+            if (DataController.Instance.OdabranaSlika.Username == SignLogInController.Instance.MojProfil.KorisnickoIme)
+            {
+                opis.Visibility = ViewStates.Visible;
+                lokacija.Visibility = ViewStates.Visible;
 
-            edit_lokacija.Visibility = ViewStates.Invisible;
-            edit_opis_slike.Visibility = ViewStates.Invisible;
+                edit_lokacija.Visibility = ViewStates.Invisible;
+                edit_opis_slike.Visibility = ViewStates.Invisible;
 
-            ok.Visibility = ViewStates.Invisible;
-            edit_slike.Visibility = ViewStates.Visible;
+                ok.Visibility = ViewStates.Invisible;
+                edit_slike.Visibility = ViewStates.Visible;
+                delete.Visibility = ViewStates.Visible;
+            }
+            else
+            {
+                edit_lokacija.Visibility = ViewStates.Invisible;
+                edit_opis_slike.Visibility = ViewStates.Invisible;
+                edit_slike.Visibility = ViewStates.Invisible;
+                ok.Visibility = ViewStates.Invisible;
+                delete.Visibility = ViewStates.Invisible;
+                opis.Visibility = ViewStates.Visible;
+                lokacija.Visibility = ViewStates.Visible;
+                
+            }
+        }
+
+        public override void OnBackPressed()
+        {
+            StartActivity(typeof(ProfileActivity));
         }
     }
 }

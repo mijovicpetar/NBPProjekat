@@ -12,7 +12,7 @@ using Android.Widget;
 using NBP_Neo4j_Redis.Controllers;
 namespace NBP_Neo4j_Redis.Activities
 {
-    [Activity(Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
+    [Activity(MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class LogInActivity : Activity
     {
         EditText _korisnickoIme;
@@ -51,7 +51,7 @@ namespace NBP_Neo4j_Redis.Activities
             bool uspesnoPrijavljivanje = SignLogInController.Instance.PrijaviSe(korisnickoIme, lozinka);
 
             if (uspesnoPrijavljivanje)
-                StartActivity(typeof(ProfileActivity));
+                StartActivity(typeof(UsersActitity));
             else
             {
                 var upozorenje = new AlertDialog.Builder(this);
