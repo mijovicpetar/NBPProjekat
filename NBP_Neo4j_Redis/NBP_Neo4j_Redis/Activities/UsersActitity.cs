@@ -50,19 +50,6 @@ namespace NBP_Neo4j_Redis.Activities
         }
 
 
-        //private void OsposobiAdapter()
-        //{
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        string s = "Melanija Krstojevic" + i;
-        //        users.Add(s);
-        //    }
-
-
-        //    listUsers.Adapter = new UsersAdapter(this, users);
-
-        //}
-
 
     }
 }

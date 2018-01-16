@@ -191,7 +191,7 @@ namespace NBP_Neo4j_Redis.Activities
         
         public void UcitajProfilnePodatke()
         {
-            if (DataController.Instance.OdabraniProfil.Profilna != null && DataController.Instance.OdabraniProfil.Profilna.Sadrzaj!=null)
+            if (DataController.Instance.OdabraniProfil.Profilna != null && DataController.Instance.OdabraniProfil.Profilna.Sadrzaj != null)
             {
 
                 Bitmap bitmap = BitmapConverter.ConvertStringToBitmap(DataController.Instance.OdabraniProfil.Profilna.Sadrzaj);

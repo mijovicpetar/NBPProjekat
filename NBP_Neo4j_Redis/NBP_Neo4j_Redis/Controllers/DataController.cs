@@ -100,6 +100,7 @@ namespace NBP_Neo4j_Redis.Controllers
         public TypeOfImages TypeOfSelectedImages { get => _typeOfSelectedImages; set => _typeOfSelectedImages = value; }
 
 
+
         #region Constructor
         private DataController()
         {
@@ -111,6 +112,7 @@ namespace NBP_Neo4j_Redis.Controllers
         public List<string> PreuzmiAktivneProfile()
         {
             List<string> lista = DataAPI.Instance.GetAllActiveUserDetails();
+          
             for (int i = 0; i < lista.Count; i++)
             {
                 string[] ss = lista[i].Split(' ');

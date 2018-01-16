@@ -12,7 +12,7 @@ using Android.Widget;
 using NBP_Neo4j_Redis.Controllers;
 namespace NBP_Neo4j_Redis.Activities
 {
-    [Activity(MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
+    [Activity(Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class LogInActivity : Activity
     {
         EditText _korisnickoIme;
