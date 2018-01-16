@@ -29,18 +29,26 @@ namespace NBP_Neo4j_Redis.Controllers
             set => _instance = value;
         }
 
-       
-        #endregion
-        
-        TLProfil _mojProfil;
 
+        #endregion
+
+        #region Atributes
+        TLProfil _mojProfil;
+        #endregion
+
+        #region Properties
 
         public TLProfil MojProfil { get => _mojProfil; set => _mojProfil = value; }
+        #endregion
 
+        #region Constructors
         private SignLogInController()
         {
             MojProfil = new TLProfil();
         }
+        #endregion
+
+        #region Methodes
         public string RegistrujSe()
         {
             Profil profil = MojProfil.ReturnBaseProfile();
@@ -55,23 +63,16 @@ namespace NBP_Neo4j_Redis.Controllers
             {
                 _mojProfil.IdentificatorName = "KorisnickoIme";
                 _mojProfil.IdentificatorValue = _mojProfil.KorisnickoIme;
-                _mojProfil.Profilna.Opis = "Ovo je moja profilna slika.";
-                _mojProfil.Profilna.Username = MojProfil.KorisnickoIme;
 
+                if (_mojProfil.Profilna.Sadrzaj != null)
+                {
+                    bool uspesnoDodavanjeSlike = NapraviProfilnuSliku(profil);
 
-                string datum = DateTime.Now.Ticks.ToString();
-                _mojProfil.Profilna.Kljuc = MojProfil.Profilna.Username + "_" + datum;                
-                _mojProfil.Profilna.UseInWhereClause = true;
-                _mojProfil.Profilna.IdentificatorName = "Kljuc";
-                _mojProfil.Profilna.IdentificatorValue = MojProfil.Profilna.Kljuc;
-
-                Slika profilnaSlika = MojProfil.Profilna.ReturnBaseImage();
-                bool uspesnoDodavanjeSlike=DataAPI.Instance.CreateEntity(profilnaSlika);
-                Profilna relationshipProfilna = new Profilna(profilnaSlika, profil);
-                bool uspesnoDodavanjePotega=DataAPI.Instance.CreateRelationship(relationshipProfilna);
-
-                if (!uspesnoDodavanjeSlike)
-                    stringResult = "Neuspesno dodavanje slike.";
+                    if (!uspesnoDodavanjeSlike)
+                        stringResult = "Neuspesno dodavanje slike.";
+                    else
+                        return null;
+                }
                 else
                     return null;
             }
@@ -113,5 +114,29 @@ namespace NBP_Neo4j_Redis.Controllers
                 return true;
             return false;
         }
+        public bool IzmeniProfil()
+        {
+            Profil profil = SignLogInController.Instance.MojProfil.ReturnBaseProfile();
+            return DataAPI.Instance.EditEntity(profil);
+        }
+        public bool NapraviProfilnuSliku(Profil profil)
+        {
+            _mojProfil.Profilna.Opis = "Ovo je moja profilna slika.";
+            _mojProfil.Profilna.Username = MojProfil.KorisnickoIme;
+            string kljuc = MojProfil.Profilna.Username + "_"+DateTime.Now.Ticks.ToString();
+            _mojProfil.Profilna.Kljuc =  kljuc;
+            _mojProfil.Profilna.IdentificatorValue = kljuc;
+            _mojProfil.Profilna.UseInWhereClause = true;
+            _mojProfil.Profilna.IdentificatorName = "Kljuc";
+            
+
+            Slika profilnaSlika = MojProfil.Profilna.ReturnBaseImage();
+            bool uspesnoDodavanjeSlike = DataAPI.Instance.CreateEntity(profilnaSlika);
+            Profilna relationshipProfilna = new Profilna(profilnaSlika, profil);
+            bool uspesnoDodavanjePotega = DataAPI.Instance.CreateRelationship(relationshipProfilna);
+            return uspesnoDodavanjePotega;
+        }
+
+        #endregion
     }
 }

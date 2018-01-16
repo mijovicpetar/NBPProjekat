@@ -97,7 +97,7 @@
      android:id="@+id/EditTextDatumRodjenja"
      android:textSize="15sp"
      android:fontFamily="Calibri"     
-     android:background="#242424"     
+     android:background="#202020"     
      android:inputType="text"   
      android:textStyle="normal" />
 
@@ -145,7 +145,7 @@
      android:textSize="15sp"
      android:inputType="text"
      android:fontFamily="Calibri"
-     android:background="#242424"
+     android:background="#202020"
      android:textStyle="normal" />
 
 
@@ -189,7 +189,7 @@
      app:layout_widthPercent ="63%"
      app:layout_marginRightPercent ="2%"
      android:id="@+id/EditTextPol"
-     android:background="#242424"
+     android:background="#202020"
      android:textSize="15sp"
      android:fontFamily="Calibri"
      android:inputType="text"

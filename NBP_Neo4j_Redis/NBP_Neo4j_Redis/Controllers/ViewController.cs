@@ -60,7 +60,6 @@ namespace NBP_Neo4j_Redis.Controllers
                 lista_profila.Adapter = new UsersAdapter(context, new List<string>());
             }
         }
-
         //private void ListaProfila_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         //{
         //    string[] podaci = e.View.FindViewById<TextView>(Resource.Id.user).Text.Split(' ');

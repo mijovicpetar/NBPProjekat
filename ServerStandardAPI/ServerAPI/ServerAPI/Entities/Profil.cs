@@ -33,7 +33,8 @@ namespace CombinedAPI.Entities
             DatumRodjenja = new DateTime();
 
             _identificatorName = "KorisnickoIme";
-            _useInWhereClause = false;
+            _useInWhereClause = true;
+            _identificatorValue = "";
         }
         #endregion
     }
