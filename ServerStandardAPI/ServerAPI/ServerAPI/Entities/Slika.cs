@@ -26,6 +26,12 @@ namespace CombinedAPI.Entities
         public Slika()
         {
             _useInWhereClause = false;
+            _identificatorName = "Kljuc";
+            _identificatorValue = "";
+            Opis = "";
+            Username = "";
+            Sadrzaj = "";
+
         }
 
         #endregion

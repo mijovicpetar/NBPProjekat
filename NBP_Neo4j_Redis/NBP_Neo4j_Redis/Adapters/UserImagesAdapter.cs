@@ -12,6 +12,7 @@ using Android.Widget;
 using NBP_Neo4j_Redis.NecessaryClasses;
 using NBP_Neo4j_Redis.Activities;
 using NBP_Neo4j_Redis.TLEntities;
+using NBP_Neo4j_Redis.Controllers;
 
 namespace NBP_Neo4j_Redis.Adapters
 {
@@ -47,12 +48,42 @@ namespace NBP_Neo4j_Redis.Adapters
             View view = inflater.Inflate(Resource.Layout.Image_item, null);
 
             TwoImages slike = images[position];
-
             ImageView image1, image2;
             image1 = view.FindViewById<ImageView>(Resource.Id.slikaKorisnika1);
             image2 = view.FindViewById<ImageView>(Resource.Id.slikaKorisnika2);
+
+            TextView kljucSlike1, kljucSlike2;
+            kljucSlike1 = view.FindViewById<TextView>(Resource.Id.KljucSlike1);
+            kljucSlike2 = view.FindViewById<TextView>(Resource.Id.KljucSlike2);
             
-            
+            kljucSlike1.Text = slike.Slika1.Kljuc;
+            if (slike.Slika2 != null)
+                kljucSlike2.Text = slike.Slika2.Kljuc;
+            else
+                image2.Visibility = ViewStates.Invisible;
+
+            kljucSlike1.Visibility = ViewStates.Invisible;
+            kljucSlike2.Visibility = ViewStates.Invisible;
+
+            PostaviSlike(slike, image1, image2);
+
+            return view;
+        }
+
+        private void Image2_Click(object sender, EventArgs e)
+        {
+            string kljuc2 = ((sender as ImageView).Parent as View).FindViewById<TextView>(Resource.Id.KljucSlike2).Text;
+            DataController.Instance.NadjiOdabranuSliku(kljuc2);
+        }
+
+        private void Image1_Click(object sender, EventArgs e)
+        {
+            string kljuc1 = ((sender as ImageView).Parent as View).FindViewById<TextView>(Resource.Id.KljucSlike1).Text;
+            DataController.Instance.NadjiOdabranuSliku(kljuc1);            
+        }
+        private void PostaviSlike(TwoImages twoImages, ImageView image1, ImageView image2)
+        {
+
             ViewGroup.LayoutParams param1 = (ViewGroup.LayoutParams)image1.LayoutParameters;
             param1.Height = 360;
             image1.LayoutParameters = param1;
@@ -63,23 +94,9 @@ namespace NBP_Neo4j_Redis.Adapters
 
             image1.Click += Image1_Click;
             image2.Click += Image2_Click;
-            //  image1.SetImageBitmap(BitmapConverter.ConvertByteArrayToBitmap(images[position].Slika1.Sadrzaj));
-            // image2.SetImageBitmap(BitmapConverter.ConvertByteArrayToBitmap(images[position].Slika2.Sadrzaj));
-
-
-            return view;
+            image1.SetImageBitmap(BitmapConverter.ConvertStringToBitmap(twoImages.Slika1.Sadrzaj));
+            image2.SetImageBitmap(BitmapConverter.ConvertStringToBitmap(twoImages.Slika2.Sadrzaj));
         }
-
-        private void Image2_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Image1_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         //Fill in cound here, currently 0
         public override int Count
         {

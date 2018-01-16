@@ -33,13 +33,14 @@ namespace NBP_Neo4j_Redis.TLEntities
         public TLSlika() : base()
         {
             _lokacija = new Lokacija();
-
+            Sadrzaj = "";
          //   _vlasnik = new TLProfil();
          //   _tagovaneOsobe = new List<TLProfil>();
          //   _lajkovi = new List<TLProfil>();
         }       
         public TLSlika(Slika slika)
         {
+            
             this.Opis = slika.Opis;
             this.Kljuc = slika.Kljuc;
             this.Sadrzaj = slika.Sadrzaj;

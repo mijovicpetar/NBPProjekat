@@ -77,18 +77,5 @@ namespace NBP_Neo4j_Redis.Controllers
             else
                 lista_profila_lajkovi.Adapter = new ImageAdapter(context, new List<string>());
         }
-
-        //private void ListaProfila_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        //{
-        //    string[] podaci = e.View.FindViewById<TextView>(Resource.Id.user).Text.Split(' ');
-        //    DataController.Instance.KorisnickoOdabranogProfila = podaci[0];
-        //    int index_odabranog_profila;
-
-        //    DataController.Instance.OdabraniProfil = DataController.Instance.VratiOdabraniProfil();
-        //    string profil = DataController.Instance.PronadjiProfilLokalno(DataController.Instance.OdabraniProfil.KorisnickoIme, out index_odabranog_profila);
-        //    DataController.Instance.IndexOdabranogProfila = index_odabranog_profila;
-
-        //    context.StartActivity(typeof(ProfileActivity));
-        //}
     }
 }

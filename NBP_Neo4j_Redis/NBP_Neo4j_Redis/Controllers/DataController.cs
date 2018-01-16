@@ -15,6 +15,11 @@ using CombinedAPI.Entities;
 
 namespace NBP_Neo4j_Redis.Controllers
 {
+    public enum TypeOfImages
+    {
+        AddedImages,
+        TagedImages
+    }
     public class DataController
     {
         #region Singleton
@@ -32,13 +37,14 @@ namespace NBP_Neo4j_Redis.Controllers
                 _instance = value;
             }
         }
-
         
+
         #endregion
 
         TLProfil _odabraniProfil;
         TLSlika _odabranaSlika;
         List<string> _profili;
+        private TypeOfImages _typeOfSelectedImages;
 
         public TLProfil OdabraniProfil { get => _odabraniProfil; set => _odabraniProfil = value; }
         public TLSlika OdabranaSlika { get => _odabranaSlika; set => _odabranaSlika = value; }
@@ -91,6 +97,8 @@ namespace NBP_Neo4j_Redis.Controllers
         {
             get; set;
         }
+        public TypeOfImages TypeOfSelectedImages { get => _typeOfSelectedImages; set => _typeOfSelectedImages = value; }
+
 
 
         #region Constructor
@@ -104,7 +112,8 @@ namespace NBP_Neo4j_Redis.Controllers
         public List<string> PreuzmiAktivneProfile()
         {
             List<string> lista = DataAPI.Instance.GetAllActiveUserDetails();
-            for(int i=0; i<lista.Count; i++)
+          
+            for (int i = 0; i < lista.Count; i++)
             {
                 string[] ss = lista[i].Split(' ');
                 if (ss[0] == OdabraniProfil.KorisnickoIme)
@@ -120,7 +129,7 @@ namespace NBP_Neo4j_Redis.Controllers
         {
             List<Profil> temp = DataAPI.Instance.GetAllLikesForPhoto(OdabranaSlika.ReturnBaseImage());
             List<string> profili = new List<string>();
-            foreach(Profil p in temp)
+            foreach (Profil p in temp)
             {
                 string s = p.KorisnickoIme + " " + p.Ime + " " + p.Prezime;
                 profili.Add(s);
@@ -171,6 +180,22 @@ namespace NBP_Neo4j_Redis.Controllers
 
             return odabrani;
 
+        }
+
+        public void NadjiOdabranuSliku(string kljuc)
+        {
+            List<TLSlika> odabraneSlike;
+            if (_typeOfSelectedImages == TypeOfImages.AddedImages)
+                odabraneSlike = _odabraniProfil.DodateSlike;
+            else
+                odabraneSlike = _odabraniProfil.TagovaneSlike;
+            foreach (TLSlika odabranaSlika in odabraneSlike)
+            {
+                if (odabranaSlika.Kljuc == kljuc)
+                {
+                    _odabranaSlika = odabranaSlika;
+                }
+            }
         }
     }
 }

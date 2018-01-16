@@ -8,11 +8,23 @@
     android:layout_height="wrap_content"
     app:layout_widthPercent ="50%"
       android:id="@+id/slikaKorisnika1"/>
-  
-    <ImageView
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_marginLeftPercent ="2%"
+    android:id="@+id/KljucSlike1"
+    app:arrowLocation="left" /> 
+  <ImageView
     
     android:layout_height="wrap_content"
     app:layout_widthPercent ="50%"
     android:layout_toRightOf="@+id/slikaKorisnika1"
     android:id="@+id/slikaKorisnika2"/>
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/KljucSlike2"
+    app:layout_marginLeftPercent ="2%"
+    app:arrowLocation="left" />
 </android.support.percent.PercentRelativeLayout>

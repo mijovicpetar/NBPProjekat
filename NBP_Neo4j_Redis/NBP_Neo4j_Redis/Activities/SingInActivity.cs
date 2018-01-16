@@ -131,7 +131,6 @@ namespace NBP_Neo4j_Redis.Activities
             SignLogInController.Instance.MojProfil.MestoStanovanja = _mestoStanovanja.Text;
             SignLogInController.Instance.MojProfil.Pol = _pol.Text;
             SignLogInController.Instance.MojProfil.KorisnickoIme = _username.Text;
-
         }
         private bool Validacija()
         {
