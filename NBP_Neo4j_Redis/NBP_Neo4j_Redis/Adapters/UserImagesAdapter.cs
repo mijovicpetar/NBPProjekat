@@ -18,30 +18,32 @@ namespace NBP_Neo4j_Redis.Adapters
 {
     public class UserImagesAdapter : BaseAdapter
     {
-        
+        #region Atributes
         private List<TwoImages> images;
         private ProfileActivity profileActivity;
+#pragma warning disable CS0169 // The field 'UserImagesAdapter.inflater' is never used
         private LayoutInflater inflater;
+#pragma warning restore CS0169 // The field 'UserImagesAdapter.inflater' is never used
+        #endregion
 
-
+        #region Constructors
         public UserImagesAdapter(ProfileActivity profileActivity, List<TwoImages> twoImages) :base()
         {
             
             this.profileActivity = profileActivity;
             images = twoImages;
         }
+        #endregion
 
-
+        #region Overrides
         public override Java.Lang.Object GetItem(int position)
         {
             return position;
         }
-
         public override long GetItemId(int position)
         {
             return position;
         }
-
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             LayoutInflater inflater = (LayoutInflater)profileActivity.BaseContext.GetSystemService(Context.LayoutInflaterService);
@@ -69,18 +71,29 @@ namespace NBP_Neo4j_Redis.Adapters
 
             return view;
         }
+        public override int Count
+        {
+            get
+            {
+                return images.Count;
+            }
+        }
+        #endregion
 
+        #region Event Handles
         private void Image2_Click(object sender, EventArgs e)
         {
             string kljuc2 = ((sender as ImageView).Parent as View).FindViewById<TextView>(Resource.Id.KljucSlike2).Text;
             DataController.Instance.NadjiOdabranuSliku(kljuc2);
         }
-
         private void Image1_Click(object sender, EventArgs e)
         {
             string kljuc1 = ((sender as ImageView).Parent as View).FindViewById<TextView>(Resource.Id.KljucSlike1).Text;
             DataController.Instance.NadjiOdabranuSliku(kljuc1);            
         }
+        #endregion
+
+        #region Methodes
         private void PostaviSlike(TwoImages twoImages, ImageView image1, ImageView image2)
         {
 
@@ -97,15 +110,7 @@ namespace NBP_Neo4j_Redis.Adapters
             image1.SetImageBitmap(BitmapConverter.ConvertStringToBitmap(twoImages.Slika1.Sadrzaj));
             image2.SetImageBitmap(BitmapConverter.ConvertStringToBitmap(twoImages.Slika2.Sadrzaj));
         }
-        //Fill in cound here, currently 0
-        public override int Count
-        {
-            get
-            {
-                return images.Count;
-            }
-        }
-
+        #endregion
     }
 
     class UserImagesAdapterViewHolder : Java.Lang.Object

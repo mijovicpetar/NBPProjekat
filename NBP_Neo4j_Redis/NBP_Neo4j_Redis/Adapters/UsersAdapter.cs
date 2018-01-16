@@ -15,28 +15,30 @@ namespace NBP_Neo4j_Redis.Adapters
 {
     class UsersAdapter : BaseAdapter
     {
+        #region Atributes
         private List<string> users;
         private Activity usersActivity;
         private LayoutInflater inflater;
+        #endregion
 
+        #region Constructors
         public UsersAdapter(Activity Uactivity, List<string> users) : base()
         {
             this.users = users;
             this.usersActivity = Uactivity;
             inflater = (LayoutInflater)usersActivity.BaseContext.GetSystemService(Context.LayoutInflaterService);
         }
+        #endregion
 
-
+        #region Overrides
         public override Java.Lang.Object GetItem(int position)
         {
             return users[position];
         }
-
         public override long GetItemId(int position)
         {
             return position;
         }
-
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
 
@@ -59,7 +61,16 @@ namespace NBP_Neo4j_Redis.Adapters
             
             return itemView;
         }
+        public override int Count
+        {
+            get
+            {
+                return users.Count;
+            }
+        }
+        #endregion
 
+        #region Event Handles
         private void ImageChat_Click(object sender, EventArgs e)
         {
             
@@ -77,14 +88,7 @@ namespace NBP_Neo4j_Redis.Adapters
 
             usersActivity.StartActivity(typeof(ProfileActivity));
         }
-        //Fill in cound here, currently 0
-        public override int Count
-        {
-            get
-            {
-                return users.Count;
-            }
-        }
+        #endregion
     }
 
     class UsersAdapterViewHolder : Java.Lang.Object

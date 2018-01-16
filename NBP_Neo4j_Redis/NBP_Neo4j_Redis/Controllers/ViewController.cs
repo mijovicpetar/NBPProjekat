@@ -18,11 +18,13 @@ namespace NBP_Neo4j_Redis.Controllers
 {
     public class ViewController
     {
+        #region Atributes
         Activity context;
         static ViewController _instance;
-
         ListView lista_profila;
+        #endregion
 
+        #region Properties
         public static ViewController Instance
         {
             get
@@ -32,19 +34,19 @@ namespace NBP_Neo4j_Redis.Controllers
                 return _instance;
             }
         }
-
         public Activity Context
         {
             get { return context; }
             set { context = value; }
         }
-
         public ListView ListaProfila
         {
             get { return lista_profila; }
             set { lista_profila = value; }
         }
+        #endregion
 
+        #region Methodes
         public void RenderujProfile()
         {
             if (DataController.Instance.Profili.Count == 0)
@@ -60,17 +62,6 @@ namespace NBP_Neo4j_Redis.Controllers
                 lista_profila.Adapter = new UsersAdapter(context, new List<string>());
             }
         }
-        //private void ListaProfila_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        //{
-        //    string[] podaci = e.View.FindViewById<TextView>(Resource.Id.user).Text.Split(' ');
-        //    DataController.Instance.KorisnickoOdabranogProfila = podaci[0];
-        //    int index_odabranog_profila;
-
-        //    DataController.Instance.OdabraniProfil = DataController.Instance.VratiOdabraniProfil();
-        //    string profil = DataController.Instance.PronadjiProfilLokalno(DataController.Instance.OdabraniProfil.KorisnickoIme, out index_odabranog_profila);
-        //    DataController.Instance.IndexOdabranogProfila = index_odabranog_profila;
-
-        //    context.StartActivity(typeof(ProfileActivity));
-        //}
+        #endregion
     }
 }

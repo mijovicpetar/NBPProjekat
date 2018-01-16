@@ -14,26 +14,28 @@ namespace NBP_Neo4j_Redis.Adapters
 {
     class ListViewAdapter : BaseAdapter
     {
+        #region Atributes
         private List<MessageContent> _listAdapter;
         private ChatActivity _chatActivity;
+        #endregion
 
-        
+        #region Constructors
         public ListViewAdapter(ChatActivity chatActivity, List<MessageContent> list)
         {
             _listAdapter = list;
             _chatActivity = chatActivity;
         }
+        #endregion
 
+        #region Overrides
         public override Java.Lang.Object GetItem(int position)
         {
             return position;
         }
-
         public override long GetItemId(int position)
         {
             return position;
         }
-
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             LayoutInflater inflater = (LayoutInflater)_chatActivity.BaseContext.GetSystemService(Context.LayoutInflaterService);
@@ -49,9 +51,7 @@ namespace NBP_Neo4j_Redis.Adapters
             message_time.Text = _listAdapter[position].Time;
 
             return itemView;
-        }
-
-        //Fill in cound here, currently 0
+        }        
         public override int Count
         {
             get
@@ -59,7 +59,7 @@ namespace NBP_Neo4j_Redis.Adapters
                 return _listAdapter.Count;
             }
         }
-
+        #endregion
     }
 
     class ListViewAdapterViewHolder : Java.Lang.Object

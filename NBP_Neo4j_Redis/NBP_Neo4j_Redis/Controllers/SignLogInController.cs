@@ -28,8 +28,6 @@ namespace NBP_Neo4j_Redis.Controllers
             }
             set => _instance = value;
         }
-
-
         #endregion
 
         #region Atributes
@@ -37,7 +35,6 @@ namespace NBP_Neo4j_Redis.Controllers
         #endregion
 
         #region Properties
-
         public TLProfil MojProfil { get => _mojProfil; set => _mojProfil = value; }
         #endregion
 
@@ -117,6 +114,9 @@ namespace NBP_Neo4j_Redis.Controllers
         public bool IzmeniProfil()
         {
             Profil profil = SignLogInController.Instance.MojProfil.ReturnBaseProfile();
+            profil.IdentificatorName = "KorisnickoIme";
+            profil.IdentificatorValue = profil.KorisnickoIme;
+            profil.UseInWhereClause = true;
             return DataAPI.Instance.EditEntity(profil);
         }
         public bool NapraviProfilnuSliku(Profil profil)
@@ -136,7 +136,6 @@ namespace NBP_Neo4j_Redis.Controllers
             bool uspesnoDodavanjePotega = DataAPI.Instance.CreateRelationship(relationshipProfilna);
             return uspesnoDodavanjePotega;
         }
-
         #endregion
     }
 }

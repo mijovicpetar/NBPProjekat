@@ -1881,8 +1881,8 @@ namespace NBP_Neo4j_Redis
 			// aapt resource value: 0x7f06006c
 			public const int KljucSlike2 = 2131099756;
 			
-			// aapt resource value: 0x7f0600a0
-			public const int ListViewImages = 2131099808;
+			// aapt resource value: 0x7f0600a1
+			public const int ListViewImages = 2131099809;
 			
 			// aapt resource value: 0x7f060091
 			public const int PprofilnaSlika = 2131099793;
@@ -1986,17 +1986,20 @@ namespace NBP_Neo4j_Redis
 			// aapt resource value: 0x7f060074
 			public const int btnLogIn = 2131099764;
 			
-			// aapt resource value: 0x7f0600ab
-			public const int btnMyProfile = 2131099819;
+			// aapt resource value: 0x7f0600ac
+			public const int btnMyProfile = 2131099820;
 			
 			// aapt resource value: 0x7f060075
 			public const int btnSignIn = 2131099765;
 			
 			// aapt resource value: 0x7f06009e
-			public const int buttonIzbaceneSlike = 2131099806;
+			public const int buttonDodajFotografiju = 2131099806;
 			
 			// aapt resource value: 0x7f06009f
-			public const int buttonOznaceneSlike = 2131099807;
+			public const int buttonIzbaceneSlike = 2131099807;
+			
+			// aapt resource value: 0x7f0600a0
+			public const int buttonOznaceneSlike = 2131099808;
 			
 			// aapt resource value: 0x7f060032
 			public const int buttonPanel = 2131099698;
@@ -2040,32 +2043,32 @@ namespace NBP_Neo4j_Redis
 			// aapt resource value: 0x7f06000d
 			public const int disableHome = 2131099661;
 			
-			// aapt resource value: 0x7f0600a3
-			public const int editTextDatumRodjenja = 2131099811;
+			// aapt resource value: 0x7f0600a4
+			public const int editTextDatumRodjenja = 2131099812;
 			
-			// aapt resource value: 0x7f0600a1
-			public const int editTextIme = 2131099809;
+			// aapt resource value: 0x7f0600a2
+			public const int editTextIme = 2131099810;
 			
 			// aapt resource value: 0x7f060072
 			public const int editTextKorisnicko = 2131099762;
 			
-			// aapt resource value: 0x7f0600a4
-			public const int editTextMestoStanovanja = 2131099812;
-			
-			// aapt resource value: 0x7f0600a7
-			public const int editTextPassword = 2131099815;
-			
 			// aapt resource value: 0x7f0600a5
-			public const int editTextPol = 2131099813;
+			public const int editTextMestoStanovanja = 2131099813;
 			
-			// aapt resource value: 0x7f0600a2
-			public const int editTextPrezime = 2131099810;
+			// aapt resource value: 0x7f0600a8
+			public const int editTextPassword = 2131099816;
+			
+			// aapt resource value: 0x7f0600a6
+			public const int editTextPol = 2131099814;
+			
+			// aapt resource value: 0x7f0600a3
+			public const int editTextPrezime = 2131099811;
 			
 			// aapt resource value: 0x7f060073
 			public const int editTextSifra = 2131099763;
 			
-			// aapt resource value: 0x7f0600a6
-			public const int editTextUsername = 2131099814;
+			// aapt resource value: 0x7f0600a7
+			public const int editTextUsername = 2131099815;
 			
 			// aapt resource value: 0x7f060065
 			public const int edit_lokacija = 2131099749;
@@ -2169,8 +2172,8 @@ namespace NBP_Neo4j_Redis
 			// aapt resource value: 0x7f060068
 			public const int list_of_persons = 2131099752;
 			
-			// aapt resource value: 0x7f0600ac
-			public const int list_of_profiles = 2131099820;
+			// aapt resource value: 0x7f0600ad
+			public const int list_of_profiles = 2131099821;
 			
 			// aapt resource value: 0x7f060064
 			public const int lokacija = 2131099748;
@@ -2298,8 +2301,8 @@ namespace NBP_Neo4j_Redis
 			// aapt resource value: 0x7f060012
 			public const int showTitle = 2131099666;
 			
-			// aapt resource value: 0x7f0600aa
-			public const int slikaChat = 2131099818;
+			// aapt resource value: 0x7f0600ab
+			public const int slikaChat = 2131099819;
 			
 			// aapt resource value: 0x7f060069
 			public const int slikaKorisnika1 = 2131099753;
@@ -2310,8 +2313,8 @@ namespace NBP_Neo4j_Redis
 			// aapt resource value: 0x7f060071
 			public const int slikaLogo = 2131099761;
 			
-			// aapt resource value: 0x7f0600a9
-			public const int slikaUser = 2131099817;
+			// aapt resource value: 0x7f0600aa
+			public const int slikaUser = 2131099818;
 			
 			// aapt resource value: 0x7f060033
 			public const int spacer = 2131099699;
@@ -2376,8 +2379,8 @@ namespace NBP_Neo4j_Redis
 			// aapt resource value: 0x7f060013
 			public const int useLogo = 2131099667;
 			
-			// aapt resource value: 0x7f0600a8
-			public const int user = 2131099816;
+			// aapt resource value: 0x7f0600a9
+			public const int user = 2131099817;
 			
 			// aapt resource value: 0x7f060022
 			public const int withText = 2131099682;

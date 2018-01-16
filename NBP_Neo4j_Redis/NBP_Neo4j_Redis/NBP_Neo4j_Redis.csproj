@@ -161,10 +161,12 @@
     <Compile Include="Adapters\UserImagesAdapter.cs" />
     <Compile Include="Adapters\UsersAdapter.cs" />
     <Compile Include="Controllers\ViewController.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NecessaryClasses\BitmapConverter.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\SignLogInController.cs" />
     <Compile Include="MainApplication.cs" />
+    <Compile Include="NecessaryClasses\DatePickerFragment.cs" />
     <Compile Include="NecessaryClasses\MessageContent.cs" />
     <Compile Include="NecessaryClasses\TwoImages.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -275,7 +277,7 @@
     <AndroidResource Include="Resources\drawable\slikaChat.png" />
   </ItemGroup>
   <ItemGroup>
-      <ProjectReference Include="..\..\ServerStandardAPI\ServerAPI\ServerAPI\ServerAPI.csproj">
+    <ProjectReference Include="..\..\ServerStandardAPI\ServerAPI\ServerAPI\ServerAPI.csproj">
       <Project>{16315cc3-12bd-4291-8f92-38025bde965c}</Project>
       <Name>ServerAPI</Name>
     </ProjectReference>

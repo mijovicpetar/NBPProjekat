@@ -19,7 +19,7 @@ namespace NBP_Neo4j_Redis
 {
     public static class BitmapConverter
     {
-
+        #region Static methodes
         public static Bitmap ConvertStringToBitmap(string sBytes)
         {
             byte[] array = Base64.Decode(sBytes, Base64Flags.Default);
@@ -38,7 +38,6 @@ namespace NBP_Neo4j_Redis
             }
             return sArray;
         }
-        
-
+        #endregion
     }
 }

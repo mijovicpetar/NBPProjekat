@@ -15,6 +15,7 @@ namespace NBP_Neo4j_Redis.Activities
     [Activity(Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class ImageActivity : Activity
     {
+        #region Controls
         private ImageView profilna;
         private TextView opis;
         private TextView lokacija;
@@ -26,9 +27,13 @@ namespace NBP_Neo4j_Redis.Activities
         private ImageView edit_slike;
         private ImageView ok;
         private ImageView delete;
+        #endregion
 
+        #region Atributes
         private List<string> users = new List<string>();
+        #endregion
 
+        #region Overrides
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -44,6 +49,9 @@ namespace NBP_Neo4j_Redis.Activities
 
             PrikaziPoljaZaEditovanje();
         }
+        #endregion
+
+        #region Methodes
         public void PoveziKomponente()
         {
             profilna = FindViewById<ImageView>(Resource.Id.profilnaSlika);
@@ -69,7 +77,6 @@ namespace NBP_Neo4j_Redis.Activities
 
             osobe.Adapter = new ImageAdapter(this, users);
         }
-
         public void PrikaziPoljaZaEditovanje()
         {
             opis.Visibility = ViewStates.Invisible;
@@ -81,7 +88,6 @@ namespace NBP_Neo4j_Redis.Activities
             ok.Visibility = ViewStates.Visible;
             edit_slike.Visibility = ViewStates.Invisible;
         }
-
         public void PrikaziPoljaZaPregled()
         {
             opis.Visibility = ViewStates.Visible;
@@ -93,5 +99,6 @@ namespace NBP_Neo4j_Redis.Activities
             ok.Visibility = ViewStates.Invisible;
             edit_slike.Visibility = ViewStates.Visible;
         }
+        #endregion
     }
 }

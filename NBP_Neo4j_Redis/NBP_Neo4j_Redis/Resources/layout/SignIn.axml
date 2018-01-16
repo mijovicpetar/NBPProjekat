@@ -142,5 +142,5 @@
       android:background="@drawable/dugme"
       android:textColor="#FFFFFF"
       app:layout_marginTopPercent="3%"
-      android:id="@+id/btnSignIn" />
+      android:id="@+id/btnSignIn" />      
 </android.support.percent.PercentRelativeLayout>

@@ -15,21 +15,25 @@ namespace NBP_Neo4j_Redis.TLEntities
 {
     public class TLProfil : Profil
     {
+        #region Atributes
         TLSlika _profilna;
         List<TLSlika> _tagovaneSlike;
         List<TLSlika> _dodateSlike;
-        
+        #endregion
+
+        #region Properties
         public TLSlika Profilna { get => _profilna; set => _profilna = value; }
         public List<TLSlika> TagovaneSlike { get => _tagovaneSlike; set => _tagovaneSlike = value; }
         public List<TLSlika> DodateSlike { get => _dodateSlike; set => _dodateSlike = value; }
+        #endregion
 
+        #region Constructors
         public TLProfil() :base()
         {
             _profilna = new TLSlika();
             _tagovaneSlike = new List<TLSlika>();
             _dodateSlike = new List<TLSlika>();
-        }
-        
+        }      
         public TLProfil(Profil p)
         {
             this.DatumRodjenja = p.DatumRodjenja;
@@ -47,7 +51,9 @@ namespace NBP_Neo4j_Redis.TLEntities
             _tagovaneSlike = new List<TLSlika>();
             _dodateSlike = new List<TLSlika>();
         }
-        
+        #endregion
+
+        #region Methodes
         public Profil ReturnBaseProfile()
         {
             Profil profil = new Profil();
@@ -64,5 +70,6 @@ namespace NBP_Neo4j_Redis.TLEntities
 
             return profil;
         }
+        #endregion
     }
 }
