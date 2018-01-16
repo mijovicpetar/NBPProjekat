@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using NBP_Neo4j_Redis.Adapters;
+using NBP_Neo4j_Redis.Controllers;
+
 namespace NBP_Neo4j_Redis.Activities
 {
     [Activity(Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
@@ -27,7 +29,6 @@ namespace NBP_Neo4j_Redis.Activities
         private ImageView ok;
         private ImageView delete;
 
-        private List<string> users = new List<string>();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -36,13 +37,6 @@ namespace NBP_Neo4j_Redis.Activities
             // Create your application here
             PoveziKomponente();
 
-            OsposobiAdapter();
-
-            opis.Text = "opis slike";
-            lokacija.Text = "Blace";
-            lajkovi.Text = lajkovi.Text + "36";
-
-            PrikaziPoljaZaEditovanje();
         }
         public void PoveziKomponente()
         {
@@ -57,17 +51,26 @@ namespace NBP_Neo4j_Redis.Activities
             edit_slike = FindViewById<ImageView>(Resource.Id.imageEdit);
             delete = FindViewById<ImageView>(Resource.Id.imageDelete);
             ok = FindViewById<ImageView>(Resource.Id.imageOk);
+
+            PrikaziPodatke();
+
+            PrikaziPoljaZaPregled();
         }
-        private void OsposobiAdapter()
+
+        private void PrikaziPodatke()
         {
-            for (int i = 0; i < 10; i++)
+            ViewController.Instance.Context = this;
+            ViewController.Instance.ListaProfilaLajkovi = osobe;
+            ViewController.Instance.RenederujProfileLajkovi();
+
+            opis.Text = DataController.Instance.OdabranaSlika.Opis;
+            if (DataController.Instance.OdabranaSlika.LokacijaSlike != null)
+                 lokacija.Text = DataController.Instance.OdabranaSlika.LokacijaSlike.Naziv + " " + DataController.Instance.OdabranaSlika.LokacijaSlike.Grad;
+            if(DataController.Instance.OdabranaSlika.Sadrzaj != null)
             {
-                string s = "Melanija Krstojevic" + i;
-                users.Add(s);
+                profilna.SetImageBitmap(BitmapConverter.ConvertStringToBitmap(DataController.Instance.OdabranaSlika.Sadrzaj));
             }
-
-
-            osobe.Adapter = new ImageAdapter(this, users);
+            lajkovi.Text = "Broj osoba kojima se sviđa slika: " + DataController.Instance.ProfiliLajkovi.Count.ToString();
         }
 
         public void PrikaziPoljaZaEditovanje()

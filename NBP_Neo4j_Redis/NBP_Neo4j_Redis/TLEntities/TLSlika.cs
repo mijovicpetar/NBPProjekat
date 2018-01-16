@@ -26,7 +26,7 @@ namespace NBP_Neo4j_Redis.TLEntities
         public Lokacija LokacijaSlike { get => _lokacija; set => _lokacija = value; }
         public TLProfil Vlasnik { get => _vlasnik; set => _vlasnik = value; }
         public List<TLProfil> TagovaneOsobe { get => _tagovaneOsobe; set => _tagovaneOsobe = value; }
-        public List<TLProfil> Lajkovi1 { get => _lajkovi; set => _lajkovi = value; }
+        public List<TLProfil> Lajkovi { get => _lajkovi; set => _lajkovi = value; }
         #endregion
 
         #region Constructors
@@ -50,6 +50,7 @@ namespace NBP_Neo4j_Redis.TLEntities
 
         }
         #endregion
+
         #region Methodes
         public static List<TLSlika> GetTLImages(List<Slika> slike)
         {

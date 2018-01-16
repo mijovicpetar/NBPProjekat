@@ -37,9 +37,11 @@ namespace NBP_Neo4j_Redis.Controllers
         #endregion
 
         TLProfil _odabraniProfil;
+        TLSlika _odabranaSlika;
         List<string> _profili;
 
         public TLProfil OdabraniProfil { get => _odabraniProfil; set => _odabraniProfil = value; }
+        public TLSlika OdabranaSlika { get => _odabranaSlika; set => _odabranaSlika = value; }
 
         public List<string> Profili
         {
@@ -55,8 +57,23 @@ namespace NBP_Neo4j_Redis.Controllers
                 _profili = value;
             }
         }
-        int _indexOdabranogProfila;
 
+        List<string> _profili_lajkovi;
+        public List<string> ProfiliLajkovi
+        {
+            get
+            {
+                if (_profili_lajkovi.Count == 0)
+                    _profili_lajkovi = PreuzmiProfileKojiSuLajkovaliSliku();
+                return _profili_lajkovi;
+            }
+            set
+            {
+                _profili_lajkovi = value;
+            }
+        }
+
+        int _indexOdabranogProfila;
         public int IndexOdabranogProfila
         {
             get
@@ -75,6 +92,7 @@ namespace NBP_Neo4j_Redis.Controllers
             get; set;
         }
 
+
         #region Constructor
         private DataController()
         {
@@ -85,9 +103,29 @@ namespace NBP_Neo4j_Redis.Controllers
 
         public List<string> PreuzmiAktivneProfile()
         {
-            List<string> lista = DataAPI.Instance.GetAllActiveUsersUsernames();
-
+            List<string> lista = DataAPI.Instance.GetAllActiveUserDetails();
+            for(int i=0; i<lista.Count; i++)
+            {
+                string[] ss = lista[i].Split(' ');
+                if (ss[0] == OdabraniProfil.KorisnickoIme)
+                {
+                    lista.RemoveAt(i);
+                    break;
+                }
+            }
             return lista;
+        }
+
+        public List<string> PreuzmiProfileKojiSuLajkovaliSliku()
+        {
+            List<Profil> temp = DataAPI.Instance.GetAllLikesForPhoto(OdabranaSlika.ReturnBaseImage());
+            List<string> profili = new List<string>();
+            foreach(Profil p in temp)
+            {
+                string s = p.KorisnickoIme + " " + p.Ime + " " + p.Prezime;
+                profili.Add(s);
+            }
+            return profili;
         }
 
         public string PronadjiProfilLokalno(string korisicko, out int indexProfila)
@@ -105,6 +143,21 @@ namespace NBP_Neo4j_Redis.Controllers
             return null;
         }
 
+        public string PronadjiProfilLokalno1(string korisnicko, out int indexProfila)
+        {
+            indexProfila = 0;
+            for (int i = 0; i < this.ProfiliLajkovi.Count; i++)
+            {
+                string[] podaci = ProfiliLajkovi[i].Split(' ');
+                if (podaci[0] == korisnicko)
+                {
+                    indexProfila = i;
+                    return ProfiliLajkovi[i];
+                }
+            }
+            return null;
+        }
+
         public TLProfil VratiOdabraniProfil()
         {
             Profil profil = new Profil();
@@ -112,8 +165,9 @@ namespace NBP_Neo4j_Redis.Controllers
             profil.IdentificatorValue = KorisnickoOdabranogProfila;
             Profil temp = DataAPI.Instance.GetEntity<Profil>(profil)[0];
             TLProfil odabrani = new TLProfil(temp);
-            List<Slika> slikeTemp = DataAPI.Instance.GetAllPicturesForProfile(temp);
-            odabrani.DodateSlike = TLSlika.GetTLImages(slikeTemp);
+            odabrani.Profilna = TLSlika.ReturnProfileImage(odabrani);
+            odabrani.TagovaneSlike = TLSlika.ReturnTagedImages(odabrani);
+            odabrani.DodateSlike = TLSlika.ReturnAddedImages(odabrani);
 
             return odabrani;
 

@@ -59,19 +59,24 @@ namespace NBP_Neo4j_Redis.Controllers
                 _mojProfil.Profilna.Username = MojProfil.KorisnickoIme;
 
 
-                string datum = DateTime.Now.Ticks.ToString();
-                _mojProfil.Profilna.Kljuc = MojProfil.Profilna.Username + "_" + datum;                
-                _mojProfil.Profilna.UseInWhereClause = true;
-                _mojProfil.Profilna.IdentificatorName = "Kljuc";
-                _mojProfil.Profilna.IdentificatorValue = MojProfil.Profilna.Kljuc;
+                if (_mojProfil.Profilna.Sadrzaj != null)
+                {
+                    string datum = DateTime.Now.Ticks.ToString();
+                    _mojProfil.Profilna.Kljuc = MojProfil.Profilna.Username + "_" + datum;
+                    _mojProfil.Profilna.UseInWhereClause = true;
+                    _mojProfil.Profilna.IdentificatorName = "Kljuc";
+                    _mojProfil.Profilna.IdentificatorValue = MojProfil.Profilna.Kljuc;
 
-                Slika profilnaSlika = MojProfil.Profilna.ReturnBaseImage();
-                bool uspesnoDodavanjeSlike=DataAPI.Instance.CreateEntity(profilnaSlika);
-                Profilna relationshipProfilna = new Profilna(profilnaSlika, profil);
-                bool uspesnoDodavanjePotega=DataAPI.Instance.CreateRelationship(relationshipProfilna);
+                    Slika profilnaSlika = MojProfil.Profilna.ReturnBaseImage();
+                    bool uspesnoDodavanjeSlike = DataAPI.Instance.CreateEntity(profilnaSlika);
+                    Profilna relationshipProfilna = new Profilna(profilnaSlika, profil);
+                    bool uspesnoDodavanjePotega = DataAPI.Instance.CreateRelationship(relationshipProfilna);
 
-                if (!uspesnoDodavanjeSlike)
-                    stringResult = "Neuspesno dodavanje slike.";
+                    if (!uspesnoDodavanjeSlike)
+                        stringResult = "Neuspesno dodavanje slike.";
+                    else
+                        return null;
+                }
                 else
                     return null;
             }

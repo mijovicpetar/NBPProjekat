@@ -22,6 +22,7 @@ namespace NBP_Neo4j_Redis.Controllers
         static ViewController _instance;
 
         ListView lista_profila;
+        ListView lista_profila_lajkovi;
 
         public static ViewController Instance
         {
@@ -45,6 +46,12 @@ namespace NBP_Neo4j_Redis.Controllers
             set { lista_profila = value; }
         }
 
+        public ListView ListaProfilaLajkovi
+        {
+            get { return lista_profila_lajkovi; }
+            set { lista_profila_lajkovi = value; }
+        }
+
         public void RenderujProfile()
         {
             if (DataController.Instance.Profili.Count == 0)
@@ -59,6 +66,16 @@ namespace NBP_Neo4j_Redis.Controllers
             {
                 lista_profila.Adapter = new UsersAdapter(context, new List<string>());
             }
+        }
+
+        public void RenederujProfileLajkovi()
+        {
+            if (DataController.Instance.ProfiliLajkovi.Count == 0)
+                DataController.Instance.ProfiliLajkovi = DataController.Instance.PreuzmiProfileKojiSuLajkovaliSliku();
+            if (DataController.Instance.ProfiliLajkovi != null)
+                lista_profila_lajkovi.Adapter = new ImageAdapter(context, DataController.Instance.ProfiliLajkovi);
+            else
+                lista_profila_lajkovi.Adapter = new ImageAdapter(context, new List<string>());
         }
 
         //private void ListaProfila_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
