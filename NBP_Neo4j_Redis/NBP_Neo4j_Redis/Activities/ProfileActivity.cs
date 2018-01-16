@@ -30,7 +30,6 @@ namespace NBP_Neo4j_Redis.Activities
         TextView _textMestoStanovanja;
         TextView _textPol;
         ListView _listaSlika;
-
         EditText _editDatumRodjenja;
         EditText _editPol;
         EditText _editMestoStanovanja;
@@ -92,12 +91,14 @@ namespace NBP_Neo4j_Redis.Activities
 
         private void _btnDodateFotografije_Click(object sender, EventArgs e)
         {
-
+            OsposobiAdapter(DataController.Instance.OdabraniProfil.DodateSlike);
+            DataController.Instance.TypeOfSelectedImages = TypeOfImages.AddedImages;
         }
 
         private void _btnOznaceneFotografije_Click(object sender, EventArgs e)
         {
-         
+            OsposobiAdapter(DataController.Instance.OdabraniProfil.TagovaneSlike);
+            DataController.Instance.TypeOfSelectedImages = TypeOfImages.TagedImages;
         }
 
         private void _imageOk_Click(object sender, EventArgs e)
@@ -106,9 +107,8 @@ namespace NBP_Neo4j_Redis.Activities
            // SignLogInController.Instance.MojProfil.DatumRodjenja = _textDatumRodjenja.Text;
             SignLogInController.Instance.MojProfil.MestoStanovanja = _textMestoStanovanja.Text;
             SignLogInController.Instance.MojProfil.Pol = _textPol.Text;
-
             
-            //dodaj kod za modifikovanje cvora u bazi
+            SignLogInController.Instance.IzmeniProfil();
         }
 
         private void _imageEdit_Click(object sender, EventArgs e)
@@ -158,9 +158,9 @@ namespace NBP_Neo4j_Redis.Activities
             _imageOk.Visibility = ViewStates.Visible;
             _imageEdit.Visibility = ViewStates.Invisible;
 
-            _textDatumRodjenja.Text = SignLogInController.Instance.MojProfil.DatumRodjenja.ToShortDateString();
-            _textMestoStanovanja.Text = SignLogInController.Instance.MojProfil.MestoStanovanja;
-            _textPol.Text = SignLogInController.Instance.MojProfil.Pol;
+            _editDatumRodjenja.Text = SignLogInController.Instance.MojProfil.DatumRodjenja.ToShortDateString();
+            _editMestoStanovanja.Text = SignLogInController.Instance.MojProfil.MestoStanovanja;
+            _editPol.Text = SignLogInController.Instance.MojProfil.Pol;
         }
 
         public void PrikaziPoljaZaPregled()
@@ -191,7 +191,7 @@ namespace NBP_Neo4j_Redis.Activities
         
         public void UcitajProfilnePodatke()
         {
-            if (DataController.Instance.OdabraniProfil.Profilna != null)
+            if (DataController.Instance.OdabraniProfil.Profilna != null && DataController.Instance.OdabraniProfil.Profilna.Sadrzaj!=null)
             {
 
                 Bitmap bitmap = BitmapConverter.ConvertStringToBitmap(DataController.Instance.OdabraniProfil.Profilna.Sadrzaj);
