@@ -6,6 +6,7 @@ using CombinedAPI.redis;
 
 namespace CombinedAPI
 {
+    #region Enums
     /// <summary>
     /// Registration outcome.
     /// </summary>
@@ -25,20 +26,25 @@ namespace CombinedAPI
         active_users,
         locations
     }
+    #endregion
 
     public class DataAPI
     {
+        #region Singleton
         private static DataAPI _instance = new DataAPI();
+        public static DataAPI Instance { get => _instance; }
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="T:CombinedAPI.DataAPI"/> class.
         /// </summary>
         private DataAPI()
         {
         }
+        #endregion
 
-        public static DataAPI Instance { get => _instance; }
-
+        #region Methodes
         /// <summary>
         /// Checks the username.
         /// </summary>
@@ -405,5 +411,6 @@ namespace CombinedAPI
             Neo4jManager.Instance.DeleteEverything();
             RedisManager.Instance.DeleteEverything();
         }
+        #endregion
     }
 }

@@ -19,6 +19,7 @@ namespace NBP_Neo4j_Redis.Activities
     [Activity(Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class ImageActivity : Activity
     {
+        #region Controls
         private ImageView profilna;
         private TextView opis;
         private TextView lokacija;
@@ -30,8 +31,13 @@ namespace NBP_Neo4j_Redis.Activities
         private ImageView edit_slike;
         private ImageView ok;
         private ImageView delete;
+        #endregion
 
+        #region Atributes
+        private List<string> users = new List<string>();
+        #endregion
 
+        #region Overrides
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -40,6 +46,9 @@ namespace NBP_Neo4j_Redis.Activities
             PoveziKomponente();
 
         }
+        #endregion
+
+        #region Methodes
         public void PoveziKomponente()
         {
             profilna = FindViewById<ImageView>(Resource.Id.profilnaSlika);
@@ -111,7 +120,6 @@ namespace NBP_Neo4j_Redis.Activities
             }
             lajkovi.Text = "Broj osoba kojima se sviđa slika: " + DataController.Instance.ProfiliLajkovi.Count.ToString();
         }
-
         public void PrikaziPoljaZaEditovanje()
         {
             if (DataController.Instance.OdabranaSlika.Username == SignLogInController.Instance.MojProfil.KorisnickoIme)
@@ -128,7 +136,6 @@ namespace NBP_Neo4j_Redis.Activities
                 delete.Visibility = ViewStates.Visible;
             }
         }
-
         public void PrikaziPoljaZaPregled()
         {
             if (DataController.Instance.OdabranaSlika.Username == SignLogInController.Instance.MojProfil.KorisnickoIme)
@@ -160,5 +167,6 @@ namespace NBP_Neo4j_Redis.Activities
         {
             StartActivity(typeof(ProfileActivity));
         }
+        #endregion
     }
 }

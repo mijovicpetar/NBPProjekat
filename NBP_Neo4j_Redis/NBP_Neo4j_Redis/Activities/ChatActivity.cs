@@ -17,19 +17,21 @@ namespace NBP_Neo4j_Redis.Activities
     [Activity(Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class ChatActivity : Activity
     {
+        #region Atributes
         private List<MessageContent> _listMessage = new List<MessageContent>();
+        #endregion
+
+        #region Controls
         private ListView _listChat;
         private EditText _editChat;
         private FloatingActionButton _button;
-        
+        #endregion
 
-
+        #region Overrides
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
         }
-
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -48,6 +50,9 @@ namespace NBP_Neo4j_Redis.Activities
             OsposobiAdapter();
 
         }
+        #endregion
+
+        #region Methodes
         private void OsposobiAdapter()
         {
             bool send = false;
@@ -66,12 +71,10 @@ namespace NBP_Neo4j_Redis.Activities
             ListViewAdapter adapter = new ListViewAdapter(this, _listMessage);
             _listChat.Adapter = adapter;
         }
-
-
         private void PostMessage()
         {
             //kod za slanje poruke
         }
-        
+        #endregion
     }
 }

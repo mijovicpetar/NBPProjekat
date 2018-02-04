@@ -12,14 +12,17 @@ using Android.Widget;
 using NBP_Neo4j_Redis.TLEntities;
 using CombinedAPI;
 using CombinedAPI.Entities;
+using Android.Graphics;
 
 namespace NBP_Neo4j_Redis.Controllers
 {
+    #region Enums
     public enum TypeOfImages
     {
         AddedImages,
         TagedImages
     }
+    #endregion
     public class DataController
     {
         #region Singleton
@@ -37,18 +40,22 @@ namespace NBP_Neo4j_Redis.Controllers
                 _instance = value;
             }
         }
-        
+
 
         #endregion
 
+        #region Atributes
         TLProfil _odabraniProfil;
         TLSlika _odabranaSlika;
         List<string> _profili;
+        List<string> _profili_lajkovi;
         private TypeOfImages _typeOfSelectedImages;
+        int _indexOdabranogProfila;
+        #endregion
 
+        #region Properties
         public TLProfil OdabraniProfil { get => _odabraniProfil; set => _odabraniProfil = value; }
         public TLSlika OdabranaSlika { get => _odabranaSlika; set => _odabranaSlika = value; }
-
         public List<string> Profili
         {
             get
@@ -63,8 +70,6 @@ namespace NBP_Neo4j_Redis.Controllers
                 _profili = value;
             }
         }
-
-        List<string> _profili_lajkovi;
         public List<string> ProfiliLajkovi
         {
             get
@@ -78,8 +83,7 @@ namespace NBP_Neo4j_Redis.Controllers
                 _profili_lajkovi = value;
             }
         }
-
-        int _indexOdabranogProfila;
+        public TypeOfImages TypeOfSelectedImages { get => _typeOfSelectedImages; set => _typeOfSelectedImages = value; }
         public int IndexOdabranogProfila
         {
             get
@@ -111,8 +115,7 @@ namespace NBP_Neo4j_Redis.Controllers
         {
             get; set;
         }
-        public TypeOfImages TypeOfSelectedImages { get => _typeOfSelectedImages; set => _typeOfSelectedImages = value; }
-
+        #endregion
 
 
         #region Constructor
@@ -124,6 +127,7 @@ namespace NBP_Neo4j_Redis.Controllers
         }
         #endregion
 
+        #region Methodes
         public List<string> PreuzmiAktivneProfile()
         {
             List<string> lista = DataAPI.Instance.GetAllActiveUserDetails();
@@ -139,7 +143,6 @@ namespace NBP_Neo4j_Redis.Controllers
             }
             return lista;
         }
-
         public List<string> PreuzmiProfileKojiSuLajkovaliSliku()
         {
             List<Profil> temp = DataAPI.Instance.GetAllLikesForPhoto(OdabranaSlika.ReturnBaseImage());
@@ -151,7 +154,6 @@ namespace NBP_Neo4j_Redis.Controllers
             }
             return profili;
         }
-
         public string PronadjiProfilLokalno(string korisicko, out int indexProfila)
         {
             indexProfila = 0;
@@ -166,7 +168,6 @@ namespace NBP_Neo4j_Redis.Controllers
             }
             return null;
         }
-
         public string PronadjiProfilLokalno1(string korisnicko, out int indexProfila)
         {
             indexProfila = 0;
@@ -181,7 +182,6 @@ namespace NBP_Neo4j_Redis.Controllers
             }
             return null;
         }
-
         public TLProfil VratiOdabraniProfil()
         {
             Profil profil = new Profil();
@@ -196,7 +196,6 @@ namespace NBP_Neo4j_Redis.Controllers
             return odabrani;
 
         }
-
         public void NadjiOdabranuSliku(string kljuc)
         {
             List<TLSlika> odabraneSlike;
@@ -213,6 +212,26 @@ namespace NBP_Neo4j_Redis.Controllers
                 }
             }
         }
+        public bool DodajNovuSliku(Bitmap sadrzajSlike)
+        {
+            string imageString = BitmapConverter.ConvertBitmapToString(sadrzajSlike);
+
+            Slika image = new Slika();
+            image.Sadrzaj = imageString;
+            image.Kljuc = SignLogInController.Instance.MojProfil.KorisnickoIme + "_" + DateTime.Now.Ticks.ToString();
+            image.UseInWhereClause = true;
+            image.Username = SignLogInController.Instance.MojProfil.KorisnickoIme;
+            image.Opis = "";
+            image.IdentificatorName = "Username";
+            image.IdentificatorValue = image.Username;
+
+            bool uspesnoDodavanje= DataAPI.Instance.CreateEntity(image);
+
+            SignLogInController.Instance.MojProfil.DodateSlike.Insert(0, new TLSlika(image));
+
+            return uspesnoDodavanje;
+        }
+        
 
         public bool IzmeniOdabranuSliku()
         {
@@ -256,5 +275,6 @@ namespace NBP_Neo4j_Redis.Controllers
             bool uspesno = DataAPI.Instance.CreateRelationship(lajk);
 
         }
+      #endregion
     }
 }

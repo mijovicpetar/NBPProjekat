@@ -18,12 +18,17 @@ namespace NBP_Neo4j_Redis.Controllers
 {
     public class ViewController
     {
+        #region Atributes
         Activity context;
         static ViewController _instance;
-
         ListView lista_profila;
+
+        #endregion
+
         ListView lista_profila_lajkovi;
 
+
+        #region Properties
         public static ViewController Instance
         {
             get
@@ -33,18 +38,20 @@ namespace NBP_Neo4j_Redis.Controllers
                 return _instance;
             }
         }
-
         public Activity Context
         {
             get { return context; }
             set { context = value; }
         }
-
         public ListView ListaProfila
         {
             get { return lista_profila; }
             set { lista_profila = value; }
         }
+        #endregion
+
+
+        #region Methodes
 
         public ListView ListaProfilaLajkovi
         {
@@ -68,6 +75,9 @@ namespace NBP_Neo4j_Redis.Controllers
             }
         }
 
+        #endregion
+
+
         public void RenederujProfileLajkovi()
         {
             if (DataController.Instance.ProfiliLajkovi.Count == 0)
@@ -77,5 +87,6 @@ namespace NBP_Neo4j_Redis.Controllers
             else
                 lista_profila_lajkovi.Adapter = new ImageAdapter(context, new List<string>());
         }
+
     }
 }

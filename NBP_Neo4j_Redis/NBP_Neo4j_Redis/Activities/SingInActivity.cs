@@ -20,12 +20,13 @@ using NBP_Neo4j_Redis.Controllers;
 using Android.Graphics.Drawables;
 using CombinedAPI.Entities;
 using CombinedAPI;
+using NBP_Neo4j_Redis.NecessaryClasses;
 namespace NBP_Neo4j_Redis.Activities
 {
     [Activity(Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/user", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class SingInActivity : Activity
     {
-        #region Komponente
+        #region Components
         EditText _ime;
         EditText _prezime;
         EditText _username;
@@ -50,12 +51,11 @@ namespace NBP_Neo4j_Redis.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.SignIn);
             // Create your application here
-
+            
             PoveziKomponente();
          //   UcitajPocetnuSliku();
             
         }
-
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
@@ -74,7 +74,7 @@ namespace NBP_Neo4j_Redis.Activities
         }
         #endregion
 
-        #region Metode
+        #region Methods
 
         private void PoveziKomponente()
         {
@@ -84,15 +84,28 @@ namespace NBP_Neo4j_Redis.Activities
             _password = FindViewById<EditText>(Resource.Id.editTextPassword);
             _pol = FindViewById<EditText>(Resource.Id.editTextPol);
             _datumRodjenja = FindViewById<EditText>(Resource.Id.editTextDatumRodjenja);
+            _datumRodjenja.FocusChange += _datumRodjenja_FocusChange;
             _mestoStanovanja = FindViewById<EditText>(Resource.Id.editTextMestoStanovanja);
 
             _profilnaSlika = FindViewById<ImageView>(Resource.Id.profilnaSlika);
             _profilnaSlika.Click += _profilnaSlika_Click;
 
             _signIn = FindViewById<Button>(Resource.Id.btnSignIn);
-            _signIn.Click += _signIn_Click;
+            _signIn.Click += _signIn_Click;            
         }
 
+        private void _datumRodjenja_FocusChange(object sender, View.FocusChangeEventArgs e)
+        {
+            if (e.HasFocus)
+            {
+                DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime vreme)
+                {
+                    _datumRodjenja.Text = vreme.ToShortDateString();
+                    SignLogInController.Instance.MojProfil.DatumRodjenja = vreme;
+                });
+                frag.Show(FragmentManager, DatePickerFragment.TAG);
+            }
+        }
         #region Funkcije vezane za profilnu sliku  
         private void NapraviSliku()
         {

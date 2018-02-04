@@ -14,12 +14,15 @@ namespace NBP_Neo4j_Redis
 {
     public class MessageContent
     {
+        #region Atributes
         public string Name { get; set; }
         public string Message { get; set; }
         public string Time { get; set; }
         public bool IsSend { get; set; }
         public MessageContent() { }
+        #endregion
 
+        #region Constructors
         public MessageContent(string name, string Message, bool send)
         {
             this.Name = name;
@@ -27,5 +30,6 @@ namespace NBP_Neo4j_Redis
             this.Time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             IsSend = send;
         }
+        #endregion
     }
 }

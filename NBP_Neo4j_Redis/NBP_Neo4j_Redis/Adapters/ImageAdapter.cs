@@ -16,28 +16,30 @@ namespace NBP_Neo4j_Redis.Adapters
 {
     class ImageAdapter : BaseAdapter
     {
+        #region Atributes
         private List<string> users;
         private Activity usersActivity;
         private LayoutInflater inflater;
+        #endregion
 
+        #region Constructors
         public ImageAdapter(Activity Uactivity, List<string> users) : base()
         {
             this.users = users;
             this.usersActivity = Uactivity;
             inflater = (LayoutInflater)usersActivity.BaseContext.GetSystemService(Context.LayoutInflaterService);
         }
+        #endregion
 
-
+        #region Overrides
         public override Java.Lang.Object GetItem(int position)
         {
             return users[position];
         }
-
         public override long GetItemId(int position)
         {
             return position;
         }
-
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
 
@@ -71,7 +73,6 @@ namespace NBP_Neo4j_Redis.Adapters
 
             usersActivity.StartActivity(typeof(ProfileActivity));
         }
-        //Fill in cound here, currently 0
         public override int Count
         {
             get
@@ -79,7 +80,7 @@ namespace NBP_Neo4j_Redis.Adapters
                 return users.Count;
             }
         }
-
+        #endregion
     }
 
     class ImageAdapterViewHolder : Java.Lang.Object

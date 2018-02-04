@@ -14,9 +14,12 @@ namespace NBP_Neo4j_Redis.NecessaryClasses
 {
     public class TwoImages
     {
+        #region Properties
         public TLSlika Slika1 { get; set; }
         public TLSlika Slika2 { get; set; }
+        #endregion
 
+        #region Constructors
         public TwoImages(TLSlika slika1, TLSlika slika2)
         {
             Slika1 = slika1;
@@ -27,5 +30,6 @@ namespace NBP_Neo4j_Redis.NecessaryClasses
             Slika1 = new TLSlika();
             Slika2 = new TLSlika();
         }
+        #endregion
     }
 }
