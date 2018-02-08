@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using CombinedAPI;
 using NBP_Neo4j_Redis.Controllers;
 namespace NBP_Neo4j_Redis.Activities
 {

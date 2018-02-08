@@ -72,6 +72,12 @@ namespace NBP_Neo4j_Redis.Activities
                 PostaviSliku(bitmap);
             }
         }
+
+        public override void OnBackPressed()
+        {
+            StartActivity(typeof(LogInActivity));
+        }
+
         #endregion
 
         #region Methods
@@ -144,6 +150,19 @@ namespace NBP_Neo4j_Redis.Activities
             SignLogInController.Instance.MojProfil.MestoStanovanja = _mestoStanovanja.Text;
             SignLogInController.Instance.MojProfil.Pol = _pol.Text;
             SignLogInController.Instance.MojProfil.KorisnickoIme = _username.Text;
+            DateTime datum=DateTime.Now;
+            try
+            {
+                datum = Convert.ToDateTime(_datumRodjenja.Text);
+            }
+            catch
+            {
+                datum = DateTime.Now;
+            }
+            finally
+            {
+                SignLogInController.Instance.MojProfil.DatumRodjenja = datum;
+            }
         }
         private bool Validacija()
         {

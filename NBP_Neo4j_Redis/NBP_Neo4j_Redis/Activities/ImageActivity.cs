@@ -48,7 +48,7 @@ namespace NBP_Neo4j_Redis.Activities
         }
         #endregion
 
-        #region Methodes
+        #region Methods
         public void PoveziKomponente()
         {
             profilna = FindViewById<ImageView>(Resource.Id.profilnaSlika);
@@ -80,7 +80,11 @@ namespace NBP_Neo4j_Redis.Activities
         private void Lajk_Click(object sender, EventArgs e)
         {
             DataController.Instance.NapraviLajk();
-            StartActivity(typeof(ImageActivity));
+            // PrikaziPodatke();
+            //StartActivity(typeof(ImageActivity));
+            DataController.Instance.ProfiliLajkovi.Clear();
+            ViewController.Instance.ListaProfilaLajkovi.Adapter = new ImageAdapter(this, DataController.Instance.ProfiliLajkovi);
+            lajkovi.Text = "Broj osoba kojima se sviđa slika: " + DataController.Instance.ProfiliLajkovi.Count.ToString();
         }
 
         private void Ok_Click(object sender, EventArgs e)
@@ -90,6 +94,7 @@ namespace NBP_Neo4j_Redis.Activities
             string lokacija = edit_lokacija.Text;
             DataController.Instance.OdabranaSlika.LokacijaSlike = new Lokacija();
             DataController.Instance.OdabranaSlika.LokacijaSlike.Naziv = lokacija;
+            DataController.Instance.IzmeniLokaciju();
             if (DataController.Instance.IzmeniOdabranuSliku())
                 StartActivity(typeof(ImageActivity));
         }

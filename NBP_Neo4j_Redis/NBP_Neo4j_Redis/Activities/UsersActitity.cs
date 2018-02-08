@@ -36,6 +36,12 @@ namespace NBP_Neo4j_Redis.Activities
             SetContentView(Resource.Layout.Users);
             InitializeAndAssign();
         }
+
+        public override void OnBackPressed()
+        {
+            
+        }
+
         #endregion
 
         #region  

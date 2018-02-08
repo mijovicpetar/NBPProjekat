@@ -226,6 +226,12 @@ namespace NBP_Neo4j_Redis.Controllers
             image.IdentificatorValue = image.Username;
 
             bool uspesnoDodavanje= DataAPI.Instance.CreateEntity(image);
+            if (uspesnoDodavanje)
+            {
+                TLSlika slika = new TLSlika(image);
+                DataController.Instance.OdabranaSlika = slika;
+                _profili_lajkovi.Clear();
+            }
 
             SignLogInController.Instance.MojProfil.DodateSlike.Insert(0, new TLSlika(image));
 
@@ -248,7 +254,7 @@ namespace NBP_Neo4j_Redis.Controllers
             
         }
 
-        private void IzmeniLokaciju()
+        public void IzmeniLokaciju()
         {
             Lokacija lokacija = OdabranaSlika.LokacijaSlike;
             lokacija.Drzava = "";
@@ -267,13 +273,21 @@ namespace NBP_Neo4j_Redis.Controllers
 
         public void NapraviLajk()
         {
-            OdabranaSlika.IdentificatorName = "Kljuc";
-            OdabranaSlika.IdentificatorValue = OdabranaSlika.Kljuc;
-            SignLogInController.Instance.MojProfil.IdentificatorName = "KorisnickoIme";
-            SignLogInController.Instance.MojProfil.IdentificatorValue = SignLogInController.Instance.MojProfil.KorisnickoIme;
-            Lajk lajk = new Lajk(SignLogInController.Instance.MojProfil.ReturnBaseProfile(), OdabranaSlika.ReturnBaseImage());
-            bool uspesno = DataAPI.Instance.CreateRelationship(lajk);
-
+            string lajks = SignLogInController.Instance.MojProfil.KorisnickoIme + " " + SignLogInController.Instance.MojProfil.Ime;
+            bool postoji = false;
+            foreach (var like in _profili_lajkovi)            
+                if (like.Contains(lajks))                
+                    postoji = true;
+            
+            if (!postoji)
+            {
+                OdabranaSlika.IdentificatorName = "Kljuc";
+                OdabranaSlika.IdentificatorValue = OdabranaSlika.Kljuc;
+                SignLogInController.Instance.MojProfil.IdentificatorName = "KorisnickoIme";
+                SignLogInController.Instance.MojProfil.IdentificatorValue = SignLogInController.Instance.MojProfil.KorisnickoIme;
+                Lajk lajk = new Lajk(SignLogInController.Instance.MojProfil.ReturnBaseProfile(), OdabranaSlika.ReturnBaseImage());
+                bool uspesno = DataAPI.Instance.CreateRelationship(lajk);
+            }
         }
       #endregion
     }
